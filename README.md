@@ -151,11 +151,10 @@ If you use TYPO3 as your CMS of choice, you can auto generate your site config o
 
 ```js
 import { defineConfig } from '@playwright/test';
-
-import { typo3SiteConfigurationLocator } from './playwright-framework/typo3';
+import { typo3SiteConfigurationLocator } from '@liquidlight/playwright-framework/typo3';
 
 module.exports = defineConfig(require('@liquidlight/playwright-framework')(
-    typo3SiteConfigurationLocator()
+	typo3SiteConfigurationLocator()
 ));
 
 ```
