@@ -1,0 +1,27 @@
+{
+  "name": "@liquidlight/playwright-framework",
+  "version": "1.0.0",
+  "description": "Liquid Light Playwright Framework",
+  "homepage": "https://github.com/liquidlight/playwright-framework#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liquidlight/playwright-framework.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liquidlight/playwright-framework/issues"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:update": "playwright test --update-snapshots",
+    "test:open": "playwright show-report",
+    "test:codegen": "playwright codegen"
+  },
+  "author": "Mike Street",
+  "license": "ISC",
+  "dependencies": {
+    "@axe-core/playwright": "^4.8.2",
+    "@playwright/test": "^1.40.1",
+    "glob": "^10.3.10",
+    "yaml": "^2.3.4"
+  }
+}

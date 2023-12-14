@@ -47,7 +47,8 @@ Once the initial config is set up, you can then make more tests in the correspon
  "scripts": {
     "test": "playwright test",
     "test:update": "playwright test --update-snapshots",
-    "test:open": "playwright show-report"
+    "test:open": "playwright show-report",
+    "test:codegen": "playwright codegen"
   },
 }
 ```
