@@ -16,7 +16,7 @@ export function convertSiteToPlaywrightProject(site: Site, device: string, env: 
 
 		// Set the device and which URL to use as a base
 		use: {
-			baseURL: site.envs[env],
+			baseURL: site.envs[env as keyof typeof site.envs],
 			...devices[device]
 		}
 	};

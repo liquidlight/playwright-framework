@@ -27,7 +27,8 @@ export function typo3SiteConfigurationLocator(): Site[] {
 			if (env) {
 				env = env.split('/');
 				env = env.length > 1 ? env[1] : env[0];
-				project.envs[env.toLowerCase()] = variant.base
+				env = env.toLowerCase();
+				project.envs[env as keyof typeof project.envs] = variant.base
 			}
 		}
 

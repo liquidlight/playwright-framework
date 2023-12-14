@@ -2,7 +2,18 @@
   "name": "@liquidlight/playwright-framework",
   "version": "1.0.0",
   "description": "Liquid Light Playwright Framework",
-  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./utils": "./dist/utils.js",
+    "./typo3": "./dist/typo3.js",
+    "./tests": "./dist/tests/index.js"
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/liquidlight/playwright-framework#readme",
   "repository": {
     "type": "git",
@@ -12,6 +23,7 @@
     "url": "https://github.com/liquidlight/playwright-framework/issues"
   },
   "scripts": {
+    "build": "tsc",
     "test": "playwright test",
     "test:update": "playwright test --update-snapshots",
     "test:open": "playwright show-report",
@@ -24,5 +36,9 @@
     "@playwright/test": "^1.40.1",
     "glob": "^10.3.10",
     "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "typescript": "^5.3.3"
   }
 }
