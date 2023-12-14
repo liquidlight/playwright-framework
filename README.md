@@ -98,21 +98,21 @@ The main enhancement of this playwright framework is to specify a single site ob
 
 ```ts
 interface Site {
-	// A nice name for the site
-	label: string;
+    // A nice name for the site
+    label: string;
 
-	// Should this site have specific devices
-	devices?: string[]
+    // Should this site have specific devices
+    devices?: string[]
 
-	// What URLs does this site respond on
-	envs: {
-		production: string
-		local?: string
-		staging?: string
-	}
+    // What URLs does this site respond on
+    envs: {
+        production: string
+        local?: string
+        staging?: string
+    }
 
-	// A Playwright project
-	project: object
+    // A Playwright project
+    project: object
 }
 ```
 
@@ -155,7 +155,7 @@ import { defineConfig } from '@playwright/test';
 import { typo3SiteConfigurationLocator } from './playwright-framework/typo3';
 
 module.exports = defineConfig(require('@liquidlight/playwright-framework')(
-	typo3SiteConfigurationLocator()
+    typo3SiteConfigurationLocator()
 ));
 
 ```
@@ -195,12 +195,12 @@ This relies on `download.path` which the [Playwright docs state](https://playwri
 import { test } from '@playwright/test';
 
 test('Ensure standards translations are available', async ({ page }) => {
-	await page.goto('/s');
+    await page.goto('/s');
 
     const downloadPromise = page.waitForEvent('download');
-	await page.getByRole('button', { name: 'Download' }).click();
+    await page.getByRole('button', { name: 'Download' }).click();
 
     const download = await downloadPromise;
-	await download.path();
+    await download.path();
 });
 ```
