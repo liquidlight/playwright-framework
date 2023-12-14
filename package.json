@@ -2,6 +2,7 @@
   "name": "@liquidlight/playwright-framework",
   "version": "1.0.0",
   "description": "Liquid Light Playwright Framework",
+  "type": "module",
   "homepage": "https://github.com/liquidlight/playwright-framework#readme",
   "repository": {
     "type": "git",
