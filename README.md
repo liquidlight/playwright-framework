@@ -154,7 +154,7 @@ import { defineConfig } from '@playwright/test';
 import { typo3SiteConfigurationLocator } from '@liquidlight/playwright-framework/typo3';
 
 module.exports = defineConfig(require('@liquidlight/playwright-framework')(
-	typo3SiteConfigurationLocator()
+    typo3SiteConfigurationLocator()
 ));
 
 ```
