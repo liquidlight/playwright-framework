@@ -2,6 +2,10 @@
 
 This is a wrapper/meta framework around [Playwright](https://playwright.dev/) - an end-to-end testing framework. This is a central configuration repository which allows us to update settings and config for all our projects.
 
+```
+npm i @liquidlight/playwright-framework -D --save
+```
+
 - [Playwright Framework](#playwright-framework)
     - [Overview](#overview)
     - [Setup](#setup)
@@ -229,10 +233,10 @@ If you use TYPO3 as your CMS of choice, you can auto generate your site config o
 
 ```js
 import { defineConfig } from '@playwright/test';
-import { typo3SiteConfigurationLocator } from '@liquidlight/playwright-framework/typo3';
+import typo3Sites from '@liquidlight/playwright-framework/typo3';
 
 const config = require('@liquidlight/playwright-framework')(
-    typo3SiteConfigurationLocator()
+    typo3Sites()
 );
 
 module.exports = defineConfig(config);

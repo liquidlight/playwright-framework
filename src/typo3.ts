@@ -3,7 +3,7 @@ import fs from 'fs';
 import { globSync } from 'glob';
 import type { Site } from './types';
 
-export function typo3SiteConfigurationLocator(): Site[] {
+export default function(): Site[] {
 	let projects: Site[] = [];
 
 	const files = globSync('./config/sites/*/config.yaml', {});
