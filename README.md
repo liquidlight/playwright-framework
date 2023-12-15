@@ -311,3 +311,8 @@ When it comes to releasing, run the following:
 
 1. `npx eslint .` and `npx eslint . --fix`
 2. `npm run build`
+3. Update the version number in `package.json`
+4. `npm update` & commit result
+5. `git tag`
+6. `git push origin main --tags`
+7. `npm publish`
