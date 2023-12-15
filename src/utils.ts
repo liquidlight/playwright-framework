@@ -2,7 +2,7 @@ import { devices, Project } from '@playwright/test';
 import type { Site } from './types';
 
 // What default devices should we test on
-export let defaultDevices: string[] = ['Desktop Chrome', 'iPhone 12'];
+export let defaultDevices: string[] = ['Desktop Edge', 'iPhone 14'];
 
 // Convert a Site object to a Playwright Project
 export function convertSiteToPlaywrightProject(site: Site, device: string, env: string = 'local'): Project
