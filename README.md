@@ -21,6 +21,7 @@ npm i @liquidlight/playwright-framework -D --save
     - [Example Tests](#example-tests)
         - [Visual Regression Test](#visual-regression-test)
         - [PDF Download](#pdf-download)
+    - [Releasing](#releasing)
 
 ## Overview
 
@@ -303,3 +304,10 @@ test('Ensure standards translations are available', async ({ page }) => {
     await download.path();
 });
 ```
+
+## Releasing
+
+When it comes to releasing, run the following:
+
+1. `npx eslint .` and `npx eslint . --fix`
+2. `npm run build`
