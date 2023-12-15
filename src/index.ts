@@ -9,15 +9,15 @@ module.exports = (
 	inputDevices: string[] = defaultDevices
 ) => {
 	// Collate PLaywright projects
-	let projects: Project[] = [];
+	const projects: Project[] = [];
 
 	// Set the env
-	let env = process.env.PLAYWRIGHT_ENV ?? 'local';
+	const env = process.env.PLAYWRIGHT_ENV ?? 'local';
 
 	// Loop through defined sites
-	for (let site of sites) {
+	for (const site of sites) {
 		// Create a site for each default device
-		for (let device of (site.devices ?? inputDevices)) {
+		for (const device of (site.devices ?? inputDevices)) {
 			projects.push(convertSiteToPlaywrightProject(site, device, env));
 		}
 	}

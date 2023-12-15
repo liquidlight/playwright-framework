@@ -16,11 +16,11 @@ export default function (
 	folder: string = 'testbed'
 ): Project[]
 {
-	let projects: Project[] = [];
+	const projects: Project[] = [];
 
-	for (let browser of browsers) {
+	for (const browser of browsers) {
 		// What folders will it use tests from?
-		let folders = [
+		const folders = [
 				// A slugified version of it's name (e.g. iphone-12)
 				slugify(browser),
 				// The browser type (e.g. webkit)
@@ -28,7 +28,8 @@ export default function (
 				// A mobile or desktop folder
 				(devices[browser].isMobile ? 'mobile' : 'desktop'),
 			]
-			// Add an escaped slash at the end
+			// Add an escaped slash at the end (for the Regex)
+			// eslint-disable-next-line  no-useless-escape
 			.map(f => f + '\/')
 			// Join them with a pipe
 			.join('|')
@@ -42,6 +43,7 @@ export default function (
 			// Anything in tests
 			testDir: './' + folder,
 			// Match anything top level or anything in a type folder
+			// eslint-disable-next-line  no-useless-escape
 			testMatch: new RegExp(folder + '\/(' + folders + ')?[^\/]+.(spec|test).(c|m)?[jt]s(x)?')
 		})
 	}

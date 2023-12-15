@@ -4,13 +4,13 @@ import { globSync } from 'glob';
 import type { Site } from './types';
 
 export default function(): Site[] {
-	let projects: Site[] = [];
+	const projects: Site[] = [];
 
 	const files = globSync('./config/sites/*/config.yaml', {});
-	for (let path of files) {
-		let yaml = parse(fs.readFileSync(path, 'utf8'))
+	for (const path of files) {
+		const yaml = parse(fs.readFileSync(path, 'utf8'))
 
-		let project: Site = {
+		const project: Site = {
 			label: yaml.websiteTitle,
 			envs: {
 				production: yaml.base
@@ -20,8 +20,8 @@ export default function(): Site[] {
 			}
 		}
 
-		for (let variant of yaml.baseVariants) {
-			let matches = variant.condition.match(/"(.*?)"/);
+		for (const variant of yaml.baseVariants) {
+			const matches = variant.condition.match(/"(.*?)"/);
 			let env = (matches ? matches[1] : false);
 
 			if (env) {
