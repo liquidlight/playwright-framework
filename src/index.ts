@@ -12,7 +12,7 @@ module.exports = (
 	let projects: Project[] = [];
 
 	// Set the env
-	let env = 'production';
+	let env = process.env.PLAYWRIGHT_ENV ?? 'local';
 
 	// Loop through defined sites
 	for (let site of sites) {
