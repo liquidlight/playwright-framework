@@ -7,6 +7,7 @@
     ".": "./dist/index.js",
     "./utils": "./dist/utils.js",
     "./typo3": "./dist/typo3.js",
+    "./testbed": "./dist/testbed.js",
     "./tests": "./dist/tests/index.js"
   },
   "module": "./dist/index.mjs",
