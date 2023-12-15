@@ -33,7 +33,7 @@ Once the initial config is set up, you can then make more tests in the correspon
 2. Create a `playwright.config.ts` file in the root of your project - we'll fill that in in a bit
 3. Add the following lines to your `.gitignore` file
 
-```
+```bash
 /test-results/
 /playwright-report/
 /blob-report/
@@ -79,6 +79,9 @@ module.exports = defineConfig(require('@liquidlight/playwright-framework')(
 ]));
 ```
 
+> [!NOTE]
+> A variable should be passed into `defineConfig` so that the VSCode extension can extract the tests.
+
 Add a new site object for each website - a second parameter can be passed in to overwrite the [default devices](#default-devices).
 
 ### Longer Description
@@ -86,10 +89,12 @@ Add a new site object for each website - a second parameter can be passed in to 
 ```js
 import { defineConfig } from '@playwright/test';
 
-module.exports = defineConfig(require('@liquidlight/playwright-framework')(
+const config = require('@liquidlight/playwright-framework')(
     [], // Array of Sites
     [] // Array of devices
-));
+);
+
+module.exports = defineConfig(config);
 ```
 
 #### Site object
@@ -125,8 +130,8 @@ interface Site {
 
 The second parameter of the framework function is an array of devices to test. By default these are the following, but can be overwritten with any [Playwright Device]([device descriptors](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json))
 
-```
-['Desktop Chrome', 'iPhone 12']
+```js
+['Desktop Edge', 'iPhone 14']
 ```
 
 If you want to use the default devices and add any additional ones, you can do so with the spread syntax
@@ -135,14 +140,15 @@ If you want to use the default devices and add any additional ones, you can do s
 import { defineConfig } from '@playwright/test';
 import { defaultDevices } from '@liquidlight/playwright-framework/utils';
 
-module.exports = defineConfig(require('@liquidlight/playwright-framework')(
+const config = require('@liquidlight/playwright-framework')(
     [] // Sites
     [
         ...defaultDevices,
         'Desktop Firefox'
     ]
-));
+);
 
+module.exports = defineConfig(config);
 ```
 
 ### TYPO3
@@ -153,10 +159,11 @@ If you use TYPO3 as your CMS of choice, you can auto generate your site config o
 import { defineConfig } from '@playwright/test';
 import { typo3SiteConfigurationLocator } from '@liquidlight/playwright-framework/typo3';
 
-module.exports = defineConfig(require('@liquidlight/playwright-framework')(
+const config = require('@liquidlight/playwright-framework')(
     typo3SiteConfigurationLocator()
-));
+);
 
+module.exports = defineConfig(config);
 ```
 
 **Note**: This function makes several assumptions
@@ -172,7 +179,8 @@ Although this is covered in the Playwright documentation, it's useful to have so
 
 ### Visual Regression Test
 
-**Note:** This will fail on the first time as it doesn't have a comparison
+> [!NOTE]
+> This will fail on the first time as it doesn't have a comparison
 
 ```ts
 test(`Visual Comparison`, async({page}) => {
