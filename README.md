@@ -302,13 +302,25 @@ Although this is covered in the Playwright documentation, it's useful to have so
 > This will fail on the first time as it doesn't have a comparison
 
 ```ts
-test(`Visual Comparison`, async({page}) => {
-    await page.goto('/);
+import { test, expect } from '@playwright/test';
 
-    await expect(page).toHaveScreenshot({
-        fullPage: true
-    });
+test.describe('Visual Regression', () => {
+	test(`Homepage`, async ({ page }) => {
+		await page.goto('/');
+
+		await expect(page).toHaveScreenshot({
+			fullPage: true
+		});
+	});
+	test(`About`, async ({ page }) => {
+		await page.goto('/about/');
+
+		await expect(page).toHaveScreenshot({
+			fullPage: true
+		});
+	});
 });
+
 ```
 
 ### PDF Download
