@@ -20,6 +20,7 @@ npm i @liquidlight/playwright-framework -D --save
         - [Environment Variables](#environment-variables)
         - [TYPO3](#typo3)
     - [Example Tests](#example-tests)
+        - [Accessibility](#accessibility)
         - [Visual Regression Test](#visual-regression-test)
         - [PDF Download](#pdf-download)
     - [Releasing](#releasing)
@@ -224,8 +225,8 @@ The `testbed()` function takes 2 arguments, an array of device names and a folde
 
 ```js
 testbed(
-	browsers: string[] = [],
-	folder: string = ''
+    browsers: string[] = [],
+    folder: string = ''
 )
 ```
 
@@ -242,13 +243,13 @@ import { test, expect } from '@playwright/test';
 import dotenv from 'dotenv';
 
 test('A test', async ({ page, isMobile }) => {
-	// Read from default ".env" file.
-	dotenv.config();
+    // Read from default ".env" file.
+    dotenv.config();
 
-	// Test we have the API key
-	if (process.env.PLAYWRIGHT_ENV != 'production') {
-		await expect(process.env.SOME_ENV).toBeTruthy();
-	}
+    // Test we have the API key
+    if (process.env.PLAYWRIGHT_ENV != 'production') {
+        await expect(process.env.SOME_ENV).toBeTruthy();
+    }
 
     ...
 });
@@ -284,7 +285,7 @@ import typo3Sites from '@liquidlight/playwright-framework/typo3';
 import testbed from '@liquidlight/playwright-framework/testbed';
 
 const config = require('@liquidlight/playwright-framework')(
-	typo3Sites()
+    typo3Sites()
 );
 
 config.projects.push(...testbed());
@@ -296,6 +297,43 @@ module.exports = defineConfig(config);
 
 Although this is covered in the Playwright documentation, it's useful to have some copy and paste examples
 
+### Accessibility
+
+```ts
+import { test } from '@playwright/test';
+import { assertPageIsAccessible } from '@liquidlight/playwright-framework/tests';
+
+/**
+ * Ensure our base page template is accessible
+ */
+test('"Tests" page is accessible', async ({ page }, testInfo) => {
+    await page.goto('/tests');
+
+    await assertPageIsAccessible(page, testInfo);
+});
+```
+
+You can pass in your own results if you need to be more granualar
+
+```ts
+import { test } from '@playwright/test';
+import { assertPageIsAccessible } from '@liquidlight/playwright-framework/tests';
+import AxeBuilder from '@axe-core/playwright';
+
+/**
+ * Ensure our base page template is accessible
+ */
+test('"Tests" page is accessible', async ({ page }, testInfo) => {
+    await page.goto('/tests');
+
+    const accessibilityScanResults = await new AxeBuilder({ page })
+        .disableRules(['duplicate-id'])
+        .analyze();
+
+    await assertPageIsAccessible(page, testInfo, accessibilityScanResults);
+});
+```
+
 ### Visual Regression Test
 
 > [!NOTE]
@@ -305,20 +343,20 @@ Although this is covered in the Playwright documentation, it's useful to have so
 import { test, expect } from '@playwright/test';
 
 test.describe('Visual Regression', () => {
-	test(`Homepage`, async ({ page }) => {
-		await page.goto('/');
+    test(`Homepage`, async ({ page }) => {
+        await page.goto('/');
 
-		await expect(page).toHaveScreenshot({
-			fullPage: true
-		});
-	});
-	test(`About`, async ({ page }) => {
-		await page.goto('/about/');
+        await expect(page).toHaveScreenshot({
+            fullPage: true
+        });
+    });
+    test(`About`, async ({ page }) => {
+        await page.goto('/about/');
 
-		await expect(page).toHaveScreenshot({
-			fullPage: true
-		});
-	});
+        await expect(page).toHaveScreenshot({
+            fullPage: true
+        });
+    });
 });
 
 ```

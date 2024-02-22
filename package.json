@@ -24,13 +24,15 @@
     "url": "https://github.com/liquidlight/playwright-framework/issues"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "pack": "npm run build && npm pack"
   },
   "author": "Mike Street",
   "license": "ISC",
   "dependencies": {
     "@axe-core/playwright": "^4.8.2",
     "@playwright/test": "^1.40.1",
+    "axe-html-reporter": "^2.2.3",
     "dotenv": "^16.4.1",
     "glob": "^10.3.10",
     "yaml": "^2.3.4"
