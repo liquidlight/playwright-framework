@@ -22,6 +22,8 @@ const config = require('@liquidlight/playwright-framework')([
 module.exports = defineConfig(config);
 ```
 
+### Setting the testDir
+
 If you wish, you can omit the second parameter and spread the result of the `typo3Config` function. E.g.
 
 ```typescript
@@ -31,4 +33,18 @@ If you wish, you can omit the second parameter and spread the result of the `typ
         testDir: './path/to/files'
     }
 }
+```
+
+### Re-using site config
+
+If you have two extensions you wish to test with the same site config, you can re-use the configuration and update the `label`. For example:
+
+```typescript
+const config = require('@liquidlight/playwright-framework')([
+	typo3Sites('[site]', './app/sites/site_package'),
+	{
+		...typo3Sites('[site]', './app/ext/extension'),
+		label: 'Extension'
+	}
+]);
 ```
