@@ -7,6 +7,11 @@ export const defaultDevices: string[] = ['Desktop Edge', 'iPhone 14'];
 // Convert a Site object to a Playwright Project
 export function convertSiteToPlaywrightProject(site: Site, device: string, env: string = 'local'): Project
 {
+	// Check we have a domain with that env, otherwise fallback to production
+	if (site.envs[env as keyof typeof site.envs] === undefined) {
+		env = 'production'
+	}
+
 	return {
 		// Merge in the project params
 		...site.project,
