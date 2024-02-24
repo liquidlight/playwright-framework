@@ -14,5 +14,5 @@ export interface Site {
 	}
 
 	// A Playwright project
-	project: object
+	project?: object
 }
