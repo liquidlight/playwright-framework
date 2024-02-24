@@ -2,22 +2,83 @@
 
 This is a wrapper/meta framework around [Playwright](https://playwright.dev/) - an end-to-end testing framework. This is a central configuration repository which allows us to update settings and config for all our projects.
 
+> [!NOTE]
+> More documentation can be found in [the docs folder](./docs/)
+
+## Get Started
+
+### Install
+
 ```
 npm i @liquidlight/playwright-framework -D --save
 ```
 
-> [!NOTE]
-> All the docs can be found in [the docs folder](./docs/)
+### Playwright Config
 
-## Setup
+Create a `playwright.config.ts` with the following contents:
 
-Once the initial config is set up, you can then make more tests in the corresponding site's folder without needing to further edit your `playwright.config.ts`.
+```typescript
+import { defineConfig } from '@playwright/test';
 
-1. `npm i @liquidlight/playwright-framework -D --save` - Install this framework as a development dependency
-2. Create a `playwright.config.ts` file in the root of your project - we'll fill that in in a bit
-3. Add the following lines to your `.gitignore` file
+const config = require('@liquidlight/playwright-framework')([
+    {
+        label: 'Site name',
+        envs: {
+            local: 'https://liquidlight.ddev.site',
+            production: 'https://www.liquidlight.co.uk',
+        },
+        project: {
+            testDir: './path/to/site/files/'
+        }
+    }
+]);
+```
+
+> [!TIP]
+> By setting local & production domains (and other), the framework can use these domains for your tests without needing to specify the full URL
+
+### Your first test
+
+In the `testDir` specified, create a new file with the following contents:
+
+```typescript
+import { test } from '@playwright/test';
+import { assertPageIsAccessible } from '@liquidlight/playwright-framework/tests';
+
+/**
+ * Ensure our base page template is accessible
+ */
+test('"Tests" page is accessible', async ({ page }, testInfo) => {
+    await page.goto('/');
+
+    await assertPageIsAccessible(page, testInfo);
+});
+```
+
+### Run the test
+
+```
+./node_modules/.bin/playwright test
+```
+
+By default, this will use the `local` environment (unless that domain hasn't been specified, then it uses production).
+
+### Change the environment
+
+If you wish to use the production domain (or any other domain set in the `envs` object) you can by modiying the `PLAYWRIGHT_ENV` var
+
+For example:
+
+```
+PLAYWRIGHT_ENV=staging ./node_modules/.bin/playwright test
+```
+
+### `.gitignore`
+
+Add the following to your `.gitignore` file:
 
 ```bash
+# Playwright Tests
 /test-results/
 /playwright-report/
 /blob-report/
@@ -27,7 +88,10 @@ Once the initial config is set up, you can then make more tests in the correspon
 
 (The `/testbed/` is optional, see the [testbed docs](./docs/testbed) for more info)
 
-4. **Optional** add the following the `scripts` block of your `package.json` - it makes it quicker to run the commands & saves you remembering them
+
+### Scripts
+
+If you wish to set up `npm run test`, you can add the following to your `package.json`
 
 ```json
 {
@@ -39,7 +103,6 @@ Once the initial config is set up, you can then make more tests in the correspon
   },
 }
 ```
-
 
 ## Releasing
 
