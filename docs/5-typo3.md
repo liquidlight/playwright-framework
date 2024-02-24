@@ -13,7 +13,7 @@ The second parameter is where the test files live (e.g. related `site_package` e
 
 ```js
 import { defineConfig } from '@playwright/test';
-import typo3Sites from '@liquidlight/playwright-framework/typo3';
+import typo3Config from '@liquidlight/playwright-framework/typo3';
 
 const config = require('@liquidlight/playwright-framework')([
     typo3Config('[site]', './path/to/files')
