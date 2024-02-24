@@ -34,12 +34,14 @@ const config = require('@liquidlight/playwright-framework')([
 ]);
 ```
 
+More details on how the configuration works can be found [in the docs](./docs/2-configuration.md). If you are running a TYPO3 site, it's worth checking out the [TYPO3 documentation](./docs/5-typo3.md).
+
 > [!TIP]
 > By setting local & production domains (and other), the framework can use these domains for your tests without needing to specify the full URL
 
 ### Your first test
 
-In the `testDir` specified, create a new file with the following contents:
+In the `testDir` specified, create a new file with the following contents. This will test the accessibility of your homepage.
 
 ```typescript
 import { test } from '@playwright/test';
@@ -63,7 +65,7 @@ test('"Tests" page is accessible', async ({ page }, testInfo) => {
 
 By default, this will use the `local` environment (unless that domain hasn't been specified, then it uses production).
 
-### Change the environment
+#### Change the environment
 
 If you wish to use the production domain (or any other domain set in the `envs` object) you can by modiying the `PLAYWRIGHT_ENV` var
 

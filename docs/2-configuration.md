@@ -11,7 +11,7 @@ If you're after a quick starter, copy and paste the below
 ```js
 import { defineConfig } from '@playwright/test';
 
-const config = require('@liquidlight/playwright-framework')(
+const config = require('@liquidlight/playwright-framework')([
     {
         label: 'Site name',
         envs: {
