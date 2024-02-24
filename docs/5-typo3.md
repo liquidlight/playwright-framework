@@ -42,9 +42,9 @@ If you have two extensions you wish to test with the same site config, you can r
 
 ```typescript
 const config = require('@liquidlight/playwright-framework')([
-	typo3Sites('[site]', './app/sites/site_package'),
+	typo3Config('[site]', './app/sites/site_package'),
 	{
-		...typo3Sites('[site]', './app/ext/extension'),
+		...typo3Config('[site]', './app/ext/extension'),
 		label: 'Extension'
 	}
 ]);
