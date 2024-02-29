@@ -47,7 +47,7 @@ test('"Tests" page is accessible', async ({ page }, testInfo) => {
 ```ts
 import { test, expect } from '@playwright/test';
 
-test.describe('Visual Regression', () => {
+test.describe('Visual Regression', { tag: ['@snapshot', '@vr'] }, () => {
     test(`Homepage`, async ({ page }) => {
         await page.goto('/');
 
@@ -63,7 +63,6 @@ test.describe('Visual Regression', () => {
         });
     });
 });
-
 ```
 
 ## PDF Download

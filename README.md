@@ -89,6 +89,8 @@ Add the following to your `.gitignore` file:
 *test.ts-snapshots/
 ```
 
+**Notes**
+
 - The `/testbed/` is optional, see the [testbed docs](./docs/testbed) for more info
 - The `*test.ts-snapshots/` is option, depending if you want to commit your snapshots/screenshots
 
@@ -100,13 +102,19 @@ If you wish to set up `npm run test`, you can add the following to your `package
 ```json
 {
  "scripts": {
-    "test": "playwright test",
-    "test:update": "playwright test --update-snapshots",
+    "test": "playwright test --grep-invert @vr",
+    "test:vr": "playwright test --grep @vr",
+    "test:update": "playwright test --update-snapshots --grep @snapshot",
     "test:open": "playwright show-report",
     "test:codegen": "playwright codegen"
   },
 }
 ```
+
+**Notes**
+
+- The `@vr` stands for visual regression - if you tag any [visual regression](https://github.com/liquidlight/playwright-framework/blob/main/docs/6-example-tests.md#visual-regression-test) tests with this, it can save you from running them every time
+- The `test:update` will inly update jobs tagged with `@snapshot`
 
 ## Releasing
 
