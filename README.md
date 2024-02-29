@@ -86,9 +86,11 @@ Add the following to your `.gitignore` file:
 /blob-report/
 /playwright/.cache/
 /testbed/
+*test.ts-snapshots/
 ```
 
-(The `/testbed/` is optional, see the [testbed docs](./docs/testbed) for more info)
+- The `/testbed/` is optional, see the [testbed docs](./docs/testbed) for more info
+- The `*test.ts-snapshots/` is option, depending if you want to commit your snapshots/screenshots
 
 
 ### Scripts
