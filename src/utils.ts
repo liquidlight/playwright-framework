@@ -17,7 +17,7 @@ export function convertSiteToPlaywrightProject(site: Site, device: string, env: 
 		...site.project,
 
 		// Give it a concatenated name
-		name: `${site.label} - ${env} [${device}]`,
+		name: `${site.label} [${device}]`,
 
 		// Set the device and which URL to use as a base
 		use: {
