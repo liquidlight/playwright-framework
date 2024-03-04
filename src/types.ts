@@ -1,7 +1,10 @@
+
+
 // What should a site look like?
 export interface Site {
 	// A nice name for the site
-	label: string;
+	label?: string;
+	name?: string;
 
 	// Should this site have specific devices
 	devices?: string[]

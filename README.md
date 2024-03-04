@@ -34,6 +34,10 @@ const config = require('@liquidlight/playwright-framework')([
 ]);
 ```
 
+- A Playwright project is made for each [default device](https://github.com/liquidlight/playwright-framework/blob/main/docs/2-configuration.md#default-devices) (e.g. the above config will make two PLaywright Projects)
+- Everything passed into the `project` object inside the site will be passed directly to each [project](https://playwright.dev/docs/test-projects)
+- If you pass `devices` as an array of strings, a project will be made per device (or you can not use any device by passing an empty array)
+
 More details on how the configuration works can be found [in the docs](./docs/2-configuration.md). If you are running a TYPO3 site, it's worth checking out the [TYPO3 documentation](./docs/5-typo3.md).
 
 > [!TIP]

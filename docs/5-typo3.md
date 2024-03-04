@@ -48,3 +48,27 @@ const config = require('@liquidlight/playwright-framework')([
 	}
 ]);
 ```
+
+### Passing configuration
+
+You may wish to pass extra options to the configuration, in which case, a third parameter can be used.
+
+For example, the above can be achieved with:
+
+```typescript
+const config = require('@liquidlight/playwright-framework')([
+	typo3Sites('[site]', './app/ext/extension', {label: 'Extension'}),
+]);
+```
+
+### Devices
+
+If you wish to override specific devices used for a TYPO3 project, the fourth parameter is an array of device strings.
+
+For example, if you just want to use Firefox for a project, you can:
+
+```typescript
+const config = require('@liquidlight/playwright-framework')([
+	typo3Sites('[site]', './app/ext/extension', {}, ['Firefox Desktop']),
+]);
+```

@@ -35,7 +35,7 @@ import { defineConfig } from '@playwright/test';
 
 const config = require('@liquidlight/playwright-framework')(
     [], // Array of Sites
-    [] // Array of devices
+    [] // Array of devices used for each site
 );
 
 module.exports = defineConfig(config);
@@ -47,21 +47,22 @@ The main enhancement of this playwright framework is to specify a single site ob
 
 ```ts
 interface Site {
-    // A nice name for the site
-    label: string;
+	// A nice name for the site
+	label?: string;
+	name?: string;
 
-    // Should this site have specific devices
-    devices?: string[]
+	// Should this site have specific devices
+	devices?: string[]
 
-    // What URLs does this site respond on
-    envs: {
-        production: string
-        local?: string
-        staging?: string
-    }
+	// What URLs does this site respond on
+	envs: {
+		production: string
+		local?: string
+		staging?: string
+	}
 
-    // A Playwright project
-    project: object
+	// A Playwright project
+	project?: object
 }
 ```
 
@@ -72,7 +73,7 @@ interface Site {
 
 ## Default Devices
 
-The second parameter of the framework function is an array of devices to test. By default these are the following, but can be overwritten with any [Playwright Device]([device descriptors](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json))
+The second parameter of the framework function is an array of devices to test. By default these are the following, but can be overwritten with any [Playwright Device](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json)
 
 ```js
 ['Desktop Edge', 'iPhone 14']

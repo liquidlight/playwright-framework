@@ -2,7 +2,7 @@ import { parse } from 'yaml'
 import fs from 'fs';
 import type { Site } from './types';
 
-export default function (siteName: string, testDir?: string): Site {
+export default function (siteName: string, testDir?: string, config?: object, inputDevices?: string[]): Site {
 	const yaml = parse(fs.readFileSync(`./config/sites/${siteName}/config.yaml`, 'utf8'));
 
 	const project: Site = {
@@ -16,6 +16,17 @@ export default function (siteName: string, testDir?: string): Site {
 		project.project = {
 			testDir,
 		}
+	}
+
+	if(config) {
+		project.project = {
+			...project.project,
+			...config
+		}
+	}
+
+	if(inputDevices) {
+		project.devices = inputDevices
 	}
 
 	for (const variant of yaml.baseVariants) {
