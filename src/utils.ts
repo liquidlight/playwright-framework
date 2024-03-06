@@ -16,6 +16,11 @@ export function convertSiteToPlaywrightProject(site: Site, device: string = ''):
 	// Give it a concatenated name
 	item.name = `${item.name ?? site.label}${device ? ' - ' + device : ''}`;
 
+	item.metadata = {
+		label: (item.name ?? site.label),
+		device: device ?? '',
+	}
+
 	// Add the device & the original
 	item.use = {
 		...(device ? devices[device] : {}),
@@ -29,6 +34,10 @@ export function convertSiteToPlaywrightProject(site: Site, device: string = ''):
 		}
 
 		item.use.baseURL = site.envs[env as keyof typeof site.envs];
+
+		// Metadata
+		item.metadata.env = env;
+		item.metadata.url = item.use.baseURL;
 	}
 
 	return item;
