@@ -7,9 +7,10 @@ If you use TYPO3 as your CMS of choice, you can use an in-built helper to genera
 > - You use `applicationContext` for different environments
 > - Your site config uses full TLDs
 
-Replace `[site]` with the folder name of the `config/sites/[site]/config.yaml` file/folder.
+Update your `playwright.config.ts` file to be like the following
 
-The second parameter is where the test files live (e.g. related `site_package` extension)
+- Replace `[site]` with the folder name of the `config/sites/[site]/config.yaml` file/folder.
+- The second parameter is where the test files live (e.g. related `site_package` extension)
 
 ```js
 import { defineConfig } from '@playwright/test';
