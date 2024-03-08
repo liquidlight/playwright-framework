@@ -48,19 +48,30 @@ test('"Tests" page is accessible', async ({ page }, testInfo) => {
 import { test, expect } from '@playwright/test';
 
 test.describe('Visual Regression', { tag: ['@snapshot', '@vr'] }, () => {
-    test(`Homepage`, async ({ page }) => {
-        await page.goto('/');
 
-        await expect(page).toHaveScreenshot({
-            fullPage: true
+    const pages = {
+        'Homepage': '/',
+        'About › About Us': '/about/about-us/'
+    };
+
+    const screenshotProperties = {
+        fullPage: true,
+        maxDiffPixelRatio: 0.2
+    }
+
+    // Loop through the pages and take a screenshot for each
+    Object.entries(pages).forEach(([testName, url]) => {
+        test(testName, async ({ page }) => {
+            await page.goto(url);
+            await expect(page).toHaveScreenshot(screenshotProperties);
         });
     });
-    test(`About`, async ({ page }) => {
-        await page.goto('/about/');
 
-        await expect(page).toHaveScreenshot({
-            fullPage: true
-        });
+    test('Homepage › Print CSS', async ({ page }) => {
+        await page.emulateMedia({ media: 'print' });
+
+        await page.goto('/');
+        await expect(page).toHaveScreenshot(screenshotProperties);
     });
 });
 ```
