@@ -115,8 +115,7 @@ If you wish to set up `npm run test`, you can add the following to your `package
     "test": "playwright test --grep-invert @vr",
     "test:vr": "playwright test --grep @vr",
     "test:update": "playwright test --update-snapshots --grep @snapshot",
-    "test:open": "playwright show-report",
-    "test:codegen": "playwright codegen"
+    "test:open": "playwright show-report"
   },
 }
 ```
@@ -125,6 +124,7 @@ If you wish to set up `npm run test`, you can add the following to your `package
 
 - The `@vr` stands for visual regression - if you tag any [visual regression](https://github.com/liquidlight/playwright-framework/blob/main/docs/6-example-tests.md#visual-regression-test) tests with this, it can save you from running them every time
 - The `test:update` will inly update jobs tagged with `@snapshot`
+- Utilise `npx playwright codegen` to help generate tests
 
 ## Releasing
 
