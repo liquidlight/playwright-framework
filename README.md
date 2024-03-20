@@ -115,7 +115,7 @@ If you wish to set up `npm run test`, you can add the following to your `package
     "test": "playwright test --grep-invert @vr",
     "test:vr": "playwright test --grep @vr",
     "test:update": "playwright test --update-snapshots --grep @snapshot",
-    "test:open": "playwright show-report"
+    "test:open": "monocart show-report test-results/report.html"
   },
 }
 ```
