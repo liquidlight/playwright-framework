@@ -2,6 +2,7 @@ import { Project } from '@playwright/test';
 import { defaultDevices, convertSiteToPlaywrightProject } from './utils';
 import type { Site } from './types';
 
+
 module.exports = (
 	// Object of sites
 	sites: Site[],

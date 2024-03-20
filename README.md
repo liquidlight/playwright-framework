@@ -71,12 +71,18 @@ By default, this will use the `local` environment (unless that domain hasn't bee
 
 #### Change the environment
 
-If you wish to use the production domain (or any other domain set in the `envs` object) you can by modiying the `PLAYWRIGHT_ENV` var
+If you wish to use the production domain (or any other domain set in the `envs` object) you can by modifying the `PLAYWRIGHT_ENV` var or passing in an `--env` flag
 
 For example:
 
 ```
 PLAYWRIGHT_ENV=staging ./node_modules/.bin/playwright test
+```
+
+or
+
+```
+./node_modules/.bin/playwright test --env=staging
 ```
 
 ### `.gitignore`

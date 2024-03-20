@@ -1,5 +1,6 @@
 import { devices, Project, PlaywrightTestOptions, PlaywrightWorkerOptions } from '@playwright/test';
 import type { Site } from './types';
+const argumentsEnv = process.env.npm_config_env;
 
 // What default devices should we test on
 export const defaultDevices: string[] = ['Desktop Edge', 'iPhone 14'];
@@ -8,7 +9,7 @@ export const defaultDevices: string[] = ['Desktop Edge', 'iPhone 14'];
 export function convertSiteToPlaywrightProject(site: Site, device: string = ''): Project
 {
 	// Set the env
-	let env = process.env.PLAYWRIGHT_ENV ?? 'local';
+	let env = argumentsEnv ?? process.env.PLAYWRIGHT_ENV ?? 'local';
 
 	// Create a new item (spread operator to create a new object rather than returning a reference)
 	const item: Project<PlaywrightTestOptions, PlaywrightWorkerOptions> = site.project ? {...site.project } : {...site };
