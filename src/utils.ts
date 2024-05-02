@@ -28,6 +28,8 @@ export function convertSiteToPlaywrightProject(site: Site, device: string = ''):
 		...item.use ?? {}
 	};
 
+	item.testMatch = /.*\.test\.js/;
+
 	// Check we have a domain with that env, otherwise fallback to production
 	if (site.envs) {
 		if(site.envs[env as keyof typeof site.envs] === undefined) {
