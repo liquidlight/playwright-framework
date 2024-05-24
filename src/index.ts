@@ -3,7 +3,6 @@ import { Project } from '@playwright/test';
 import { defaultDevices, convertSiteToPlaywrightProject } from './utils';
 import { execSync } from 'child_process';
 
-
 module.exports = (
 	// Object of sites
 	sites: Site[],
@@ -16,16 +15,23 @@ module.exports = (
 
 	// Loop through defined sites
 	for (const site of sites) {
+
+		// Reset the devices
 		let devices = inputDevices;
+
+		// Override the devices if necessary
 		if(site.devices) {
 			devices = site.devices;
 			delete site.devices;
 		}
 
+		// Do we have a number of devices?
 		if(devices.length > 0) {
-			// Create a site for each default device
-			for (const device of devices) {
-				projects.push(convertSiteToPlaywrightProject(site, device));
+			// Send the first device & search for unit, spec & test files
+			projects.push(convertSiteToPlaywrightProject(site, devices.shift()));
+			// Create a site for each remaining device & only search for `.test` files
+			for (const device of (devices ?? [])) {
+				projects.push(convertSiteToPlaywrightProject(site, device, {testsToFind: 'test'}));
 			}
 		} else {
 			projects.push(convertSiteToPlaywrightProject(site));
@@ -44,7 +50,7 @@ module.exports = (
 		retries: process.env.CI ? 2 : 0,
 		/* Opt out of parallel tests on CI. */
 		workers: process.env.CI ? 1 : undefined,
-		
+
 		/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 		use: {
 			/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */

@@ -2,17 +2,24 @@ import { devices, Project, PlaywrightTestOptions, PlaywrightWorkerOptions } from
 import type { Site } from './types';
 const argumentsEnv = process.env.npm_config_env;
 
+interface Config {
+	testsToFind?: string;
+}
+
 // What default devices should we test on
 export const defaultDevices: string[] = ['Desktop Edge', 'iPhone 14'];
 
 // Convert a Site object to a Playwright Project
-export function convertSiteToPlaywrightProject(site: Site, device: string = ''): Project
+export function convertSiteToPlaywrightProject(site: Site, device: string = '', config?: Config): Project
 {
 	// Set the env
 	let env = argumentsEnv ?? process.env.PLAYWRIGHT_ENV ?? 'local';
 
 	// Create a new item (spread operator to create a new object rather than returning a reference)
-	const item: Project<PlaywrightTestOptions, PlaywrightWorkerOptions> = site.project ? {...site.project } : {...site };
+	const item: Project<PlaywrightTestOptions, PlaywrightWorkerOptions> = site.project ?
+		{...site.project } :
+		{...site }
+	;
 
 	// Give it a concatenated name
 	item.name = `${item.name ?? site.label}${device ? ' - ' + device : ''}`;
@@ -28,7 +35,13 @@ export function convertSiteToPlaywrightProject(site: Site, device: string = ''):
 		...item.use ?? {}
 	};
 
-	item.testMatch = /.*\.test\.ts/;
+	// If the tes file name is not specified, use the default
+	let testsToFind = 'unit|spec|test';
+	if (config && Object.prototype.hasOwnProperty.call(config, 'testsToFind')) {
+		testsToFind = config.testsToFind;
+	}
+
+	item.testMatch = '**/*.@(' + testsToFind + ').?(c|m)[jt]s?(x)';
 
 	// Check we have a domain with that env, otherwise fallback to production
 	if (site.envs) {
