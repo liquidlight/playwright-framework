@@ -7,7 +7,7 @@ interface Config {
 }
 
 // What default devices should we test on
-export const defaultDevices: string[] = ['Desktop Edge', 'iPhone 14'];
+export const defaultDevices: string[] = ['Desktop Edge', 'Desktop Safari', 'iPhone 14'];
 
 // Convert a Site object to a Playwright Project
 export function convertSiteToPlaywrightProject(site: Site, device: string = '', config?: Config): Project

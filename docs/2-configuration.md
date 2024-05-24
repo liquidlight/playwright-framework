@@ -76,7 +76,7 @@ interface Site {
 The second parameter of the framework function is an array of devices to test. By default these are the following, but can be overwritten with any [Playwright Device](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json)
 
 ```js
-['Desktop Edge', 'iPhone 14']
+['Desktop Edge', 'Desktop Safari', 'iPhone 14']
 ```
 
 If you want to use the default devices and add any additional ones, you can do so with the spread syntax
