@@ -25,7 +25,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "pack": "npm run build && npm pack"
+    "pack": "npm run build && npm pack",
+    "lint": "eslint ."
   },
   "author": "Mike Street",
   "license": "ISC",
