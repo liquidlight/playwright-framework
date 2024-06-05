@@ -62,6 +62,7 @@ test.describe('Visual Regression', { tag: ['@snapshot', '@vr'] }, () => {
     // Loop through the pages and take a screenshot for each
     Object.entries(pages).forEach(([testName, url]) => {
         test(testName, async ({ page }) => {
+            test.info().annotations.push({type: 'path', description: url});
             await page.goto(url);
             await expect(page).toHaveScreenshot(screenshotProperties);
         });
