@@ -128,7 +128,7 @@ If you wish to set up `npm run test`, you can add the following to your `package
 
 **Notes**
 
-- The `@vr` stands for visual regression - if you tag any [visual regression](https://github.com/liquidlight/playwright-framework/blob/main/docs/6-example-tests.md#visual-regression-test) tests with this, it can save you from running them every time
+- The `@vr` stands for visual regression - if you tag any [visual regression](https://github.com/liquidlight/playwright-framework/blob/main/docs/99-example-tests.md#visual-regression-test) tests with this, it can save you from running them every time
 - The `test:update` will inly update jobs tagged with `@snapshot`
 - Utilise `npx playwright codegen` to help generate tests
 

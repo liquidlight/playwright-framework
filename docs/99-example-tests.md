@@ -44,6 +44,8 @@ test('"Tests" page is accessible', async ({ page }, testInfo) => {
 > [!NOTE]
 > This will fail on the first time as it doesn't have a comparison
 
+Generally saved as `visual-regression.test.ts`.
+
 ```ts
 import { test, expect } from '@playwright/test';
 
@@ -61,12 +63,12 @@ test.describe('Visual Regression', { tag: ['@snapshot', '@vr'] }, () => {
 
     // Loop through the pages and take a screenshot for each
     Object.entries(pages).forEach(([testName, url]) => {
-        test(testName, async ({ page }) => {
-            test.info().annotations.push({type: 'path', description: url});
-            await page.goto(url);
-            await expect(page).toHaveScreenshot(screenshotProperties);
-        });
-    });
+		test(testName, async({page}) => {
+			test.info().annotations.push({type: 'path', description: test.info().project.metadata.url + url});
+			await page.goto(url);
+			await expect(page).toHaveScreenshot(screenshotProperties);
+		});
+	});
 
     test('Homepage › Print CSS', async ({ page }) => {
         await page.emulateMedia({ media: 'print' });
