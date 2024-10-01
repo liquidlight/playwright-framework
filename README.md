@@ -7,8 +7,8 @@ This is a wrapper/meta framework around [Playwright](https://playwright.dev/) - 
 
 ## Naming Conventions
 
-- `*.unit.ts` - These are unit tests and should not open the browser - they are only run by the first device
-- `*.spec.ts` - These should test functionality and open the browser - they are only run by the first device
+- `*.unit.ts` - These are unit tests and should **not** open the browser - they are **only** run by the first device
+- `*.spec.ts` - These should test functionality and open the browser - they are **only** run by the first device
 - `*.test.ts` - These should be used for end-to-end testing and are run by all the devices specified
 
 ## Get Started
@@ -20,6 +20,9 @@ npm i @liquidlight/playwright-framework -D --save
 ```
 
 ### Playwright Config
+
+> [!TIP]
+> If you are running a TYPO3 site, it's worth checking out the [Liquid Light Playwright Framework TYPO3 documentation](./docs/5-typo3.md).
 
 Create a `playwright.config.ts` with the following contents:
 
@@ -44,7 +47,7 @@ const config = require('@liquidlight/playwright-framework')([
 - Everything passed into the `project` object inside the site will be passed directly to each [project](https://playwright.dev/docs/test-projects)
 - If you pass `devices` as an array of strings, a project will be made per device (or you can not use any device by passing an empty array)
 
-More details on how the configuration works can be found [in the docs](./docs/2-configuration.md). If you are running a TYPO3 site, it's worth checking out the [Liquid Light Playwright Framework TYPO3 documentation](./docs/5-typo3.md).
+More details on how the configuration works can be found [in the docs](./docs/2-configuration.md).
 
 > [!TIP]
 > By setting local & production domains (and other), the framework can use these domains for your tests without needing to specify the full URL
