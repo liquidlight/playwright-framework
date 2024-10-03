@@ -1,6 +1,6 @@
 {
   "name": "@liquidlight/playwright-framework",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Liquid Light Playwright Framework",
   "main": "./dist/index.js",
   "type": "module",
