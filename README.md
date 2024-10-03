@@ -13,6 +13,11 @@ This is a wrapper/meta framework around [Playwright](https://playwright.dev/) - 
 
 ## Get Started
 
+> [!WARNING]
+> This uses ESM. If your project uses CommonJS, you will need to use (v0.4.0-beta.1)[https://github.com/liquidlight/playwright-framework/tree/0.4.0-beta.1]
+
+ESM projects can be identified by checking your `package.json` to see if it has `"type": "module"`
+
 ### Install
 
 ```
@@ -28,8 +33,9 @@ Create a `playwright.config.ts` with the following contents:
 
 ```typescript
 import { defineConfig } from '@playwright/test';
+import { framework } from '@liquidlight/playwright-framework';
 
-const config = require('@liquidlight/playwright-framework')([
+const config = framework([
     {
         label: 'Site name',
         envs: {
@@ -41,6 +47,8 @@ const config = require('@liquidlight/playwright-framework')([
         }
     }
 ]);
+
+export default defineConfig(config);
 ```
 
 - A Playwright project is made for each [default device](https://github.com/liquidlight/playwright-framework/blob/main/docs/2-configuration.md#default-devices) (e.g. the above config will make two PLaywright Projects)
@@ -146,3 +154,13 @@ When it comes to releasing, run the following:
 5. `git tag [version]`
 6. `git push origin main --tags`
 7. `npm publish`
+
+## Local Development
+
+1. Clone the repository down parallel to your project
+2. Run `npm run pack`
+3. In your project, delete `node_modules/@liquidlight/playwright-framework`
+4. Update the `package.json` in the project to be `"@liquidlight/playwright-framework": "file:./../playwright-framework/liquidlight-playwright-framework-0.4.0-beta.1.tgz"` (or whatever the tgz file made is)
+5. Run `npm update` in the project
+
+If you make changes to the package, run `npm run pack` in the package and `npm update` in the project

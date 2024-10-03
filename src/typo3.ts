@@ -1,6 +1,6 @@
 import { parse } from 'yaml'
 import fs from 'fs';
-import type { Site } from './types';
+import type { Site } from './types.js';
 
 export default function (siteName: string, testDir?: string, config?: object, inputDevices?: string[]): Site {
 	const yaml = parse(fs.readFileSync(`./config/sites/${siteName}/config.yaml`, 'utf8'));

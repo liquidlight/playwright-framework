@@ -1,9 +1,10 @@
-import { devices, Project, PlaywrightTestOptions, PlaywrightWorkerOptions } from '@playwright/test';
-import type { Site } from './types';
+import { devices } from '@playwright/test';
+import type { Project, PlaywrightTestOptions, PlaywrightWorkerOptions } from '@playwright/test';
+import type { Site } from './types.js';
 const argumentsEnv = process.env.npm_config_env;
 
 interface Config {
-	testsToFind?: string;
+	testsToFind: string;
 }
 
 // What default devices should we test on

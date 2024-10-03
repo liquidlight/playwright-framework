@@ -1,5 +1,6 @@
-import { devices, Project } from '@playwright/test';
-import { slugify } from './utils';
+import { devices } from '@playwright/test';
+import { slugify } from './utils.js';
+import type { Project } from '@playwright/test';
 
 /**
  * Create a testbed platform for quick tests
@@ -18,15 +19,20 @@ export default function (
 {
 	const projects: Project[] = [];
 
+	if (!devices) {
+		return projects;
+	}
+
 	for (const browser of browsers) {
+
 		// What folders will it use tests from?
 		const folders = [
 				// A slugified version of it's name (e.g. iphone-12)
 				slugify(browser),
 				// The browser type (e.g. webkit)
-				devices[browser].defaultBrowserType,
+				devices[browser]!.defaultBrowserType,
 				// A mobile or desktop folder
-				(devices[browser].isMobile ? 'mobile' : 'desktop'),
+				(devices[browser]!.isMobile ? 'mobile' : 'desktop'),
 			]
 			// Add an escaped slash at the end (for the Regex)
 			// eslint-disable-next-line  no-useless-escape

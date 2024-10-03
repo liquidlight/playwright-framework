@@ -14,10 +14,10 @@ Update your `playwright.config.ts` file to be like the following
 
 ```js
 import { defineConfig } from '@playwright/test';
-import typo3Config from '@liquidlight/playwright-framework/typo3';
+import { framework, typo3Config } from '@liquidlight/playwright-framework';
 
-const config = require('@liquidlight/playwright-framework')([
-    typo3Config('[site]', './path/to/files')
+const config = framework([
+	typo3Config('[site]', './path/to/files')
 ]);
 
 module.exports = defineConfig(config);
@@ -41,7 +41,7 @@ If you wish, you can omit the second parameter and spread the result of the `typ
 If you have two extensions you wish to test with the same site config, you can re-use the configuration and update the `label`. For example:
 
 ```typescript
-const config = require('@liquidlight/playwright-framework')([
+const config = framework([
 	typo3Config('[site]', './app/sites/site_package'),
 	{
 		...typo3Config('[site]', './app/ext/extension'),
@@ -57,7 +57,7 @@ You may wish to pass extra options to the configuration, in which case, a third 
 For example, the above can be achieved with:
 
 ```typescript
-const config = require('@liquidlight/playwright-framework')([
+const config = framework([
 	typo3Sites('[site]', './app/ext/extension', {label: 'Extension'}),
 ]);
 ```
@@ -69,7 +69,7 @@ If you wish to override specific devices used for a TYPO3 project, the fourth pa
 For example, if you just want to use Firefox for a project, you can:
 
 ```typescript
-const config = require('@liquidlight/playwright-framework')([
+const config = framework([
 	typo3Sites('[site]', './app/ext/extension', {}, ['Firefox Desktop']),
 ]);
 ```

@@ -1,2 +1,2 @@
-export * from './search.spec';
-export * from './accessibility.spec';
+export * from './search.spec.js';
+export * from './accessibility.spec.js';

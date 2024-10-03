@@ -10,8 +10,9 @@ If you're after a quick starter, copy and paste the below
 
 ```js
 import { defineConfig } from '@playwright/test';
+import { framework } from '@liquidlight/playwright-framework';
 
-const config = require('@liquidlight/playwright-framework')([
+const config = framework([
     {
         label: 'Site name',
         envs: {
@@ -32,8 +33,9 @@ Add a new site object for each website - a second parameter can be passed in to 
 
 ```js
 import { defineConfig } from '@playwright/test';
+import { framework } from '@liquidlight/playwright-framework';
 
-const config = require('@liquidlight/playwright-framework')(
+const config = framework(
     [], // Array of Sites
     [] // Array of devices used for each site
 );
@@ -83,9 +85,9 @@ If you want to use the default devices and add any additional ones, you can do s
 
 ```js
 import { defineConfig } from '@playwright/test';
-import { defaultDevices } from '@liquidlight/playwright-framework/utils';
+import { framework, defaultDevices } from '@liquidlight/playwright-framework';
 
-const config = require('@liquidlight/playwright-framework')(
+const config = framework(
     [] // Sites
     [
         ...defaultDevices,
