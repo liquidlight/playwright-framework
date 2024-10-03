@@ -9,7 +9,7 @@ Including the testbed in your project enables a whole host of devices to access 
 Add the following to your `playwright.config.ts` and create a `testbed` folder in the root of your project
 
 ```js
-import testbed from '@liquidlight/playwright-framework/testbed';
+import { testbed } from '@liquidlight/playwright-framework';
 ```
 
 In inside your `projects` array, you can use the `testbed()` function
