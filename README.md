@@ -152,8 +152,7 @@ When it comes to releasing, run the following:
 3. Update the version number in `package.json`
 4. Commit result
 5. `git tag [version]`
-6. `git push origin main --tags`
-7. `npm publish`
+6. `git push origin main --tags` - this will publish to NPM
 
 ## Local Development
 
