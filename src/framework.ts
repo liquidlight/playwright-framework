@@ -125,7 +125,7 @@ export default function(
 										id: 'env',
 										name: 'Environment',
 										width: 150,
-										formatter: (v: string) => (v.charAt(0).toUpperCase() + v.slice(1)) ?? ''
+										formatter: (v: string) => ((v.length) ? (v.charAt(0).toUpperCase() + v.slice(1)) : '')
 									},
 									{
 										id: 'device',
