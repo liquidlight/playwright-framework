@@ -18,6 +18,14 @@ This is a wrapper/meta framework around [Playwright](https://playwright.dev/) - 
 
 ESM projects can be identified by checking your `package.json` to see if it has `"type": "module"`
 
+The steps are:
+
+1. [Install](#install)
+2. [Set up the config](#playwright-config)
+3. [Create & run a test](#your-first-test)
+4. [Add folders to `.gitginore`](#gitignore)
+5. [Add scripts to `package.json`](#scripts)
+
 ### Install
 
 ```
@@ -54,6 +62,7 @@ export default defineConfig(config);
 - A Playwright project is made for each [default device](https://github.com/liquidlight/playwright-framework/blob/main/docs/2-configuration.md#default-devices) (e.g. the above config will make two PLaywright Projects)
 - Everything passed into the `project` object inside the site will be passed directly to each [project](https://playwright.dev/docs/test-projects)
 - If you pass `devices` as an array of strings, a project will be made per device (or you can not use any device by passing an empty array)
+- If you have a TYPO3 website, there is a specific `typo3Config` function to [you can use to generate the config](./docs/5-typo3.md)
 
 More details on how the configuration works can be found [in the docs](./docs/2-configuration.md).
 
@@ -143,9 +152,9 @@ If you wish to set up `npm run test`, you can add the following to your `package
 - The `test:update` will inly update jobs tagged with `@snapshot`
 - Utilise `npx playwright codegen` to help generate tests
 
-## Releasing
+## Releasing this Playwright Framework
 
-When it comes to releasing, run the following:
+When it comes to creating a new release for the Playwright Framework, run the following:
 
 1. `npx eslint .` and `npx eslint . --fix`
 2. `npm run build`
@@ -154,9 +163,10 @@ When it comes to releasing, run the following:
 5. `git tag [version]`
 6. `git push origin main --tags` - this will publish to NPM
 
-## Local Development
+## Local Development of the Playwright Framework
 
 1. Clone the repository down parallel to your project
+2. Run `npm install`
 2. Run `npm run pack`
 3. In your project, delete `node_modules/@liquidlight/playwright-framework`
 4. Update the `package.json` in the project to be `"@liquidlight/playwright-framework": "file:./../playwright-framework/liquidlight-playwright-framework-0.4.0-beta.1.tgz"` (or whatever the tgz file made is)
