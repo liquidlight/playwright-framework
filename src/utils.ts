@@ -14,7 +14,7 @@ export const defaultDevices: string[] = ['Desktop Edge', 'Desktop Safari', 'iPho
 export function convertSiteToPlaywrightProject(site: Site, device: string = '', config?: Config): Project
 {
 	// Set the env
-	let env = argumentsEnv ?? process.env.PLAYWRIGHT_ENV ?? 'local';
+	let env = getEnv();
 
 	// Create a new item (spread operator to create a new object rather than returning a reference)
 	const item: Project<PlaywrightTestOptions, PlaywrightWorkerOptions> = site.project ?
@@ -64,10 +64,6 @@ export function convertDeviceToPlaywrightProject(device: string = '', config?: C
 	// Create an item for the device
 	const item: any = {
 		name: device,
-		metadata: {
-			label: device,
-			device,
-		},
 		use: devices[device]
 	}
 
@@ -80,6 +76,11 @@ export function convertDeviceToPlaywrightProject(device: string = '', config?: C
 	item.testMatch = '**/*.@(' + testsToFind + ').?(c|m)[jt]s?(x)';
 
 	return item;
+}
+
+export function getEnv()
+{
+	return argumentsEnv ?? process.env.PLAYWRIGHT_ENV ?? 'local';
 }
 
 export function slugify(str: string): string
