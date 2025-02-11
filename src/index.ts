@@ -10,7 +10,7 @@ export { defineConfig, test, expect } from '@playwright/test';
 export { default as defineFrameworkConfig } from './defineFrameworkConfig.js';
 
 // The framework base config
-export { default as base } from './base.js';
+export { config as baseConfig } from './base.js';
 
 // The main framework
 export { default as framework } from './framework.js';
