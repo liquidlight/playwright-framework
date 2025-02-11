@@ -20,7 +20,7 @@ const config = framework([
 	typo3Config('[site]', './path/to/files')
 ]);
 
-module.exports = defineConfig(config);
+export default defineConfig(config);
 ```
 
 ### Setting the testDir

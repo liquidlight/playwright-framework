@@ -15,7 +15,7 @@ import { testbed } from '@liquidlight/playwright-framework';
 In inside your `projects` array, you can use the `testbed()` function
 
 ```js
-module.exports = defineConfig({
+export default defineConfig({
     projects: [
         ...testbed()
     ]

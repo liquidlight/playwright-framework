@@ -14,7 +14,7 @@ This is a wrapper/meta framework around [Playwright](https://playwright.dev/) - 
 ## Get Started
 
 > [!WARNING]
-> This uses ESM. If your project uses CommonJS, you will need to use (v0.4.0-beta.1)[https://github.com/liquidlight/playwright-framework/tree/0.4.0-beta.1]
+> This uses ESM. If your project uses CommonJS, you will need to use [v0.4.0-beta.1](https://github.com/liquidlight/playwright-framework/tree/0.4.0-beta.1) or set your config file to be `playwright.config.mts` (not the `mts` at the end)
 
 ESM projects can be identified by checking your `package.json` to see if it has `"type": "module"`
 

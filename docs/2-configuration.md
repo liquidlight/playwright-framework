@@ -24,7 +24,7 @@ const config = framework([
     }
 ]);
 
-module.exports = defineConfig(config);
+export default defineConfig(config);
 ```
 
 Add a new site object for each website - a second parameter can be passed in to overwrite the [default devices](#default-devices).
@@ -40,7 +40,7 @@ const config = framework(
     [] // Array of devices used for each site
 );
 
-module.exports = defineConfig(config);
+export default defineConfig(config);
 ```
 
 ### Site object
@@ -95,5 +95,5 @@ const config = framework(
     ]
 );
 
-module.exports = defineConfig(config);
+export default defineConfig(config);
 ```
