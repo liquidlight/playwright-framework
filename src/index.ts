@@ -3,6 +3,8 @@
  * Exports
  * ====
  */
+// Playwright exports to simplify includes
+export { defineConfig, test, expect } from '@playwright/test';
 
 // The main framework
 export { default as framework } from './framework.js';
