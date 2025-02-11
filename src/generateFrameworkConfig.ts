@@ -11,10 +11,13 @@ export default function (
 	// Collate PLaywright projects
 	const projects: Project[] = [];
 
+	// Redefine in case an empty array is passed in
+	const devices = inputDevices.length ? inputDevices : defaultDevices
+
 	// Send the first device & search for unit, spec & test files
-	projects.push(convertDeviceToPlaywrightProject(inputDevices.shift()));
+	projects.push(convertDeviceToPlaywrightProject(devices.shift()));
 	// Create a site for each remaining device & only search for `.test` files
-	for (const device of (inputDevices ?? [])) {
+	for (const device of (devices ?? [])) {
 		projects.push(convertDeviceToPlaywrightProject(device, { testsToFind: 'test' }));
 	}
 
