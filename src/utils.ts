@@ -60,6 +60,28 @@ export function convertSiteToPlaywrightProject(site: Site, device: string = '', 
 	return item;
 }
 
+export function convertDeviceToPlaywrightProject(device: string = '', config?: Config): Project {
+	// Create an item for the device
+	const item: any = {
+		name: device,
+		metadata: {
+			label: device,
+			device,
+		},
+		use: devices[device]
+	}
+
+	// If the tes file name is not specified, use the default
+	let testsToFind = 'unit|spec|test';
+	if (config && Object.prototype.hasOwnProperty.call(config, 'testsToFind')) {
+		testsToFind = config.testsToFind;
+	}
+
+	item.testMatch = '**/*.@(' + testsToFind + ').?(c|m)[jt]s?(x)';
+
+	return item;
+}
+
 export function slugify(str: string): string
 {
 	return String(str)
