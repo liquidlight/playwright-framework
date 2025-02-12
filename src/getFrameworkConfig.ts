@@ -1,12 +1,15 @@
-import type { Project, PlaywrightTestConfig } from '@playwright/test';
-import { defaultDevices, convertDeviceToPlaywrightProject } from './utils.js';
+import type { Project } from '@playwright/test';
+import type { Hosts, FrameworkTestConfig } from './types.js';
+import { defaultDevices, convertDeviceToPlaywrightProject, deepMerge } from './utils.js';
 import { config } from './base.js';
 
 export default function (
+	// Set hosts if you want
+	hosts = [] as Hosts,
 	// Specific devices if different to default
 	inputDevices: string[] = defaultDevices,
 
-	configOverride: PlaywrightTestConfig = {}
+	configOverride: FrameworkTestConfig = {}
 ): any {
 	// Collate PLaywright projects
 	const projects: Project[] = [];
@@ -23,8 +26,13 @@ export default function (
 
 	config.projects = projects;
 
-	return {
-		...config,
-		...configOverride
+	if(hosts.length > 1) {
+		if(!config.use) {
+			config.use = {};
+		}
+
+		config.use.hosts = hosts;
 	}
+
+	return deepMerge({}, config, configOverride);
 }
