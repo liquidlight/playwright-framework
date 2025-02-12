@@ -5,6 +5,14 @@ package-lock.json
 /coverage.data
 /coverage/
 
+# Playwright Tests
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/testbed/
+*test.ts-snapshots/
+
 # Build files
 /dist
 
