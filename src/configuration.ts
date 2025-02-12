@@ -1,7 +1,7 @@
 import type { Project } from '@playwright/test';
 import type {
+	ConfigurationOptions,
 	FrameworkTestConfig,
-	Hosts
 } from './types.js';
 
 import { baseConfig } from './baseConfig.js';
@@ -12,10 +12,12 @@ import {
 } from './utils.js';
 
 export default function(
-	// Set hosts if you want
-	hosts = [] as Hosts,
-	// Specific devices if different to default
-	inputDevices: string[] = defaultDevices,
+	options: ConfigurationOptions = {
+		// Set hosts if you want
+		hosts: [],
+		// Specific devices if different to default
+		inputDevices: [],
+	},
 
 	configOverride: FrameworkTestConfig = {}
 ): any {
@@ -23,7 +25,7 @@ export default function(
 	const projects: Project[] = [];
 
 	// Redefine in case an empty array is passed in
-	const devices = inputDevices.length ? inputDevices : defaultDevices
+	const devices = options.inputDevices.length ? options.inputDevices : defaultDevices
 
 	// Send the first device & search for unit, spec & test files
 	projects.push(convertDeviceToPlaywrightProject(devices.shift()));
@@ -34,12 +36,12 @@ export default function(
 
 	baseConfig.projects = projects;
 
-	if (hosts.length > 1) {
+	if (options.hosts.length > 1) {
 		if (!baseConfig.use) {
 			baseConfig.use = {};
 		}
 
-		baseConfig.use.hosts = hosts;
+		baseConfig.use.hosts = options.hosts;
 	}
 
 	return deepMerge({}, baseConfig, configOverride);

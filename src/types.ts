@@ -11,6 +11,14 @@ export type FrameworkTest = {
 	hosts: Hosts;
 }
 
+// The first object of the configuration function
+export interface ConfigurationOptions {
+	// Set hosts
+	hosts: Hosts;
+	// Specific devices if different to default
+	inputDevices: string[];
+}
+
 // Extend the existing PlaywrightTestConfig
 export interface FrameworkTestConfig extends PlaywrightTestConfig {
 	use?: PlaywrightTestConfig['use'] & {
