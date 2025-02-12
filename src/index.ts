@@ -24,7 +24,7 @@ export { default as generateFrameworkConfig } from './generateFrameworkConfig.js
 export { default as typo3Config } from './typo3Config.js';
 
 // TYPO3 site
-export { default as t3site } from './t3site.js';
+export { default as typo3Site } from './typo3Site.js';
 
 // TYPO3 configuration
 export { default as testbed } from './testbed.js';
