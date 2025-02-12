@@ -1,8 +1,6 @@
 import { devices } from '@playwright/test';
 import type { Project, PlaywrightTestOptions, PlaywrightWorkerOptions } from '@playwright/test';
 import type { Site } from './types.js';
-const argumentsEnv = process.env.npm_config_env;
-
 interface Config {
 	testsToFind: string;
 }
@@ -78,10 +76,48 @@ export function convertDeviceToPlaywrightProject(device: string = '', config?: C
 	return item;
 }
 
-export function getEnv()
-{
-	return argumentsEnv ?? process.env.PLAYWRIGHT_ENV ?? 'local';
+export function copyInstance(original: object) {
+	const copied = Object.assign(
+		Object.create(
+			Object.getPrototypeOf(original)
+		),
+		original
+	);
+	return copied;
 }
+
+
+export const getEnv = () => process.env.npm_config_env || process.env.PLAYWRIGHT_ENV || 'local';
+
+export const normalizeUrl = (url: string) => url.endsWith('/') ? url.slice(0, -1) : url;
+
+export function getHostForEnv(hosts, path: string): string {
+	if (!URL.canParse(path)) return path;
+
+	const url = new URL(path);
+	const base = swapEnvHostname(hosts, url.origin);
+	return base + url.pathname + url.search + url.hash;
+}
+
+export function swapEnvHostname(hosts: any[], origin: string): string {
+	const normOrigin = normalizeUrl(origin);
+	const env = getEnv();
+
+	for (const host of hosts) {
+		// Create a Set for faster lookup
+		const urls = new Set(Object.values(host).map(normalizeUrl));
+		if (urls.has(normOrigin)) {
+			// Find the matching key without looping through all entries
+			for (const key in host) {
+				if (normalizeUrl(host[key]) === normOrigin) {
+					return key === env ? origin : host[env] || origin;
+				}
+			}
+		}
+	}
+	return origin;
+}
+
 
 export function slugify(str: string): string
 {

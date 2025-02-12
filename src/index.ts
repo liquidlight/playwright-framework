@@ -4,7 +4,9 @@
  * ====
  */
 // Playwright exports to simplify includes
-export { defineConfig, test, expect } from '@playwright/test';
+export { defineConfig, expect } from '@playwright/test';
+
+export { test } from './fixtures/test.js';
 
 // Returns a playwright defineConfig with the framework sprinkled over the top
 export { default as defineFrameworkConfig } from './defineFrameworkConfig.js';
