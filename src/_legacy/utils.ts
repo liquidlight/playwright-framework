@@ -7,7 +7,22 @@ import { parse } from 'yaml'
 import fs from 'fs';
 import { devices } from '@playwright/test';
 
+export function deprecationNotice()
+{
+	if(process.env.PWF_DEPRECATION_V1 !== 'true') {
+		console.warn('⚠️ Legacy functionality detected');
+		console.warn('The configuration is using deprectaed functionality which will be removed in the next version.');
+		console.warn('Please follow the migration guide to upgrade');
+		console.warn('[INSERT URL]');
+
+		process.env.PWF_DEPRECATION_V1 = 'true';
+	}
+}
+
 export function typo3Config(siteName: string, testDir?: string, config?: object, inputDevices?: string[]): Site {
+
+	deprecationNotice();
+
 	const yaml = parse(fs.readFileSync(`./config/sites/${siteName}/config.yaml`, 'utf8'));
 
 	const project: Site = {
@@ -52,6 +67,8 @@ export function typo3Config(siteName: string, testDir?: string, config?: object,
 // Convert a Site object to a Playwright Project
 export function convertSiteToPlaywrightProject(site: Site, device: string = '', config?: ProjectConfig): Project
 {
+	deprecationNotice();
+
 	// Set the env
 	let env = getEnv();
 

@@ -1,7 +1,7 @@
 import type { Project } from '@playwright/test';
 import type { Site } from './types.js';
 import { defaultDevices } from './../utils.js';
-import { convertSiteToPlaywrightProject } from './utils.js';
+import { convertSiteToPlaywrightProject, deprecationNotice } from './utils.js';
 import { baseConfig as config } from './../baseConfig.js';
 
 export default function(
@@ -11,6 +11,8 @@ export default function(
 	// Specific devices if different to default
 	inputDevices: string[] = defaultDevices
 ): any {
+	deprecationNotice();
+
 	// Collate PLaywright projects
 	const projects: Project[] = [];
 
