@@ -1,7 +1,8 @@
-import type { Site } from './types.js';
 import type { Project } from '@playwright/test';
-import { defaultDevices, convertSiteToPlaywrightProject } from './utils.js';
-import { config } from './base.js';
+import type { Site } from './types.js';
+import { defaultDevices } from './../utils.js';
+import { convertSiteToPlaywrightProject } from './utils.js';
+import { baseConfig as config } from './../baseConfig.js';
 
 export default function(
 	// Object of sites

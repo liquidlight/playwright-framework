@@ -1,64 +1,28 @@
+import type { Project } from '@playwright/test';
+import type {
+	PlainObject,
+	ProjectConfig
+} from './types.js';
 import { devices } from '@playwright/test';
-import type { Project, PlaywrightTestOptions, PlaywrightWorkerOptions } from '@playwright/test';
-import type { Site, PlainObject } from './types.js';
-interface Config {
-	testsToFind: string;
-}
+
+/**
+ * Consts
+ */
 
 // What default devices should we test on
 export const defaultDevices: string[] = ['Desktop Edge', 'Desktop Safari', 'iPhone 14'];
 
-// Convert a Site object to a Playwright Project
-export function convertSiteToPlaywrightProject(site: Site, device: string = '', config?: Config): Project
-{
-	// Set the env
-	let env = getEnv();
+// Get the current environment
+export const getEnv = () => process.env.npm_config_env || process.env.PLAYWRIGHT_ENV || 'local';
 
-	// Create a new item (spread operator to create a new object rather than returning a reference)
-	const item: Project<PlaywrightTestOptions, PlaywrightWorkerOptions> = site.project ?
-		{...site.project } :
-		{...site }
-	;
+export const normalizeUrl = (url: string) => url.endsWith('/') ? url.slice(0, -1) : url;
 
-	// Give it a concatenated name
-	item.name = `${item.name ?? site.label}${device ? ' - ' + device : ''}`;
+/**
+ * Functions
+ */
 
-	item.metadata = {
-		label: (item.name ?? site.label),
-		device: device ?? '',
-	}
-
-	// Add the device & the original
-	item.use = {
-		...(device ? devices[device] : {}),
-		...item.use ?? {}
-	};
-
-	// If the tes file name is not specified, use the default
-	let testsToFind = 'unit|spec|test';
-	if (config && Object.prototype.hasOwnProperty.call(config, 'testsToFind')) {
-		testsToFind = config.testsToFind;
-	}
-
-	item.testMatch = '**/*.@(' + testsToFind + ').?(c|m)[jt]s?(x)';
-
-	// Check we have a domain with that env, otherwise fallback to production
-	if (site.envs) {
-		if(site.envs[env as keyof typeof site.envs] === undefined) {
-			env = 'production'
-		}
-
-		item.use.baseURL = site.envs[env as keyof typeof site.envs];
-
-		// Metadata
-		item.metadata.env = env;
-		item.metadata.url = item.use.baseURL;
-	}
-
-	return item;
-}
-
-export function convertDeviceToPlaywrightProject(device: string = '', config?: Config): Project {
+// Convert a single device name to a Playwright project
+export function convertDeviceToPlaywrightProject(device: string = '', config?: ProjectConfig): Project {
 	// Create an item for the device
 	const item: any = {
 		name: device,
@@ -76,6 +40,7 @@ export function convertDeviceToPlaywrightProject(device: string = '', config?: C
 	return item;
 }
 
+// Copy an object
 export function copyInstance(original: object) {
 	const copied = Object.assign(
 		Object.create(
@@ -86,53 +51,42 @@ export function copyInstance(original: object) {
 	return copied;
 }
 
-
-export const getEnv = () => process.env.npm_config_env || process.env.PLAYWRIGHT_ENV || 'local';
-
-export const normalizeUrl = (url: string) => url.endsWith('/') ? url.slice(0, -1) : url;
-
+// Swap a host based on environment
 export function getHostForEnv(hosts: any, path: string): string {
-	if (!URL.canParse(path)) return path;
+	// Is the path a valid URL
+	if (!URL.canParse(path)) {
+		return path;
+	}
 
+	// Parse the URL
 	const url = new URL(path);
-	const base = swapEnvHostname(hosts, url.origin);
+
+	// Get the new origin
+	const base = swapEnvHostname(hosts, normalizeUrl(url.origin));
+
+	// Reconstruct the URL with the new base
 	return base + url.pathname + url.search + url.hash;
 }
 
+// Swap the host based on environment
 export function swapEnvHostname(hosts: any[], origin: string): string {
-	const normOrigin = normalizeUrl(origin);
+	// Get the current environment
 	const env = getEnv();
 
+	// Loop through hosts
 	for (const host of hosts) {
-		// Explicitly tell TypeScript that the values are strings
+		// Get all the URLs from the host
 		const urls = new Set<string>(Object.values(host).map(url => normalizeUrl(url as string)));
-		if (urls.has(normOrigin)) {
-			// Find the matching key without looping through all entries
-			for (const key in host) {
-				if (normalizeUrl(host[key] as string) === normOrigin) {
-					return key === env ? origin : (host[env] as string) || origin;
-				}
-			}
+		// Is our origin in that set?
+		if (urls.has(origin)) {
+			// Return the new URL or, if it doesn't exist, the original
+			return host[env] as string || origin;
 		}
 	}
 	return origin;
 }
 
-
-
-export function slugify(str: string): string
-{
-	return String(str)
-		.normalize('NFKD') // split accented characters into their base characters and diacritical marks
-		.replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
-		.trim() // trim leading or trailing whitespace
-		.toLowerCase() // convert to lowercase
-		.replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
-		.replace(/\s+/g, '-') // replace spaces with hyphens
-		.replace(/-+/g, '-'); // remove consecutive hyphens
-}
-
-
+// Allow deep merging of objects
 export function deepMerge<T extends PlainObject>(target: T, ...sources: PlainObject[]): T {
 	if (!sources.length) return target;
 	const source = sources.shift() as PlainObject;
@@ -151,6 +105,7 @@ export function deepMerge<T extends PlainObject>(target: T, ...sources: PlainObj
 	return deepMerge(target, ...sources);
 }
 
+// Detect if a variable is an object
 export function isObject(item: any): item is PlainObject {
 	return (item && typeof item === 'object' && !Array.isArray(item));
 }

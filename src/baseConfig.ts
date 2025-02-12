@@ -1,11 +1,10 @@
-import type { Project } from '@playwright/test';
-import { execSync } from 'child_process';
 import type { FrameworkTestConfig } from './types.js';
 
-const projects: Project[] = [];
+import { execSync } from 'child_process';
 
-export const config: FrameworkTestConfig = {
-	projects,
+export const baseConfig: FrameworkTestConfig = {
+	// Projects
+	projects: [],
 
 	/* Run tests in files in parallel */
 	fullyParallel: true,

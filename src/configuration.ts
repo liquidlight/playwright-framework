@@ -1,9 +1,17 @@
 import type { Project } from '@playwright/test';
-import type { Hosts, FrameworkTestConfig } from './types.js';
-import { defaultDevices, convertDeviceToPlaywrightProject, deepMerge } from './utils.js';
-import { config } from './base.js';
+import type {
+	FrameworkTestConfig,
+	Hosts
+} from './types.js';
 
-export default function (
+import { baseConfig } from './baseConfig.js';
+import {
+	convertDeviceToPlaywrightProject,
+	defaultDevices,
+	deepMerge
+} from './utils.js';
+
+export default function(
 	// Set hosts if you want
 	hosts = [] as Hosts,
 	// Specific devices if different to default
@@ -24,15 +32,15 @@ export default function (
 		projects.push(convertDeviceToPlaywrightProject(device, { testsToFind: 'test' }));
 	}
 
-	config.projects = projects;
+	baseConfig.projects = projects;
 
-	if(hosts.length > 1) {
-		if(!config.use) {
-			config.use = {};
+	if (hosts.length > 1) {
+		if (!baseConfig.use) {
+			baseConfig.use = {};
 		}
 
-		config.use.hosts = hosts;
+		baseConfig.use.hosts = hosts;
 	}
 
-	return deepMerge({}, config, configOverride);
+	return deepMerge({}, baseConfig, configOverride);
 }

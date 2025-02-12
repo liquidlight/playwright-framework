@@ -1,7 +1,7 @@
 import { parse } from 'yaml'
 import fs from 'fs';
 
-export default function (siteName: string): string {
+export default function(siteName: string): string {
 	const yaml = parse(fs.readFileSync(`./config/sites/${siteName}/config.yaml`, 'utf8'));
 
 	const project: any = {

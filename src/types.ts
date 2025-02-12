@@ -1,32 +1,24 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 
-// What should a site look like?
-export interface Site {
-	// A nice name for the site
-	label?: string;
-	name?: string;
+// A default "Object" for deep merge
+export type PlainObject = Record<string, any>;
 
-	// Should this site have specific devices
-	devices?: string[]
-
-	// What URLs does this site respond on
-	envs: {
-		production: string
-		local?: string
-		staging?: string
-	}
-
-	// A Playwright project
-	project?: object
-}
-
+// How should the hosts be formatted
 export type Hosts = Array<{ [key: string]: string }>;
 
-export type PlainObject = Record<string, any>;
+// Define additional parameters
+export type FrameworkTest = {
+	hosts: Hosts;
+}
 
 // Extend the existing PlaywrightTestConfig
 export interface FrameworkTestConfig extends PlaywrightTestConfig {
 	use?: PlaywrightTestConfig['use'] & {
 		hosts?: Hosts;
 	};
+}
+
+// The additional configuration for a project
+export interface ProjectConfig {
+	testsToFind: string;
 }

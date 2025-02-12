@@ -11,7 +11,7 @@ import type { Page } from 'playwright-core';
  *
  * @returns void
  */
-export async function keSearchReturnsResults(page: Page, searchWords: string = '', path: string = '/search/', )
+export async function keSearchReturnsResults(page: Page, searchWords: string = '', path: string = '/search/')
 {
 	await page.goto(path);
 
