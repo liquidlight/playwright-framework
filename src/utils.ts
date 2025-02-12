@@ -91,7 +91,7 @@ export const getEnv = () => process.env.npm_config_env || process.env.PLAYWRIGHT
 
 export const normalizeUrl = (url: string) => url.endsWith('/') ? url.slice(0, -1) : url;
 
-export function getHostForEnv(hosts, path: string): string {
+export function getHostForEnv(hosts: any, path: string): string {
 	if (!URL.canParse(path)) return path;
 
 	const url = new URL(path);
@@ -104,19 +104,20 @@ export function swapEnvHostname(hosts: any[], origin: string): string {
 	const env = getEnv();
 
 	for (const host of hosts) {
-		// Create a Set for faster lookup
-		const urls = new Set(Object.values(host).map(normalizeUrl));
+		// Explicitly tell TypeScript that the values are strings
+		const urls = new Set<string>(Object.values(host).map(url => normalizeUrl(url as string)));
 		if (urls.has(normOrigin)) {
 			// Find the matching key without looping through all entries
 			for (const key in host) {
-				if (normalizeUrl(host[key]) === normOrigin) {
-					return key === env ? origin : host[env] || origin;
+				if (normalizeUrl(host[key] as string) === normOrigin) {
+					return key === env ? origin : (host[env] as string) || origin;
 				}
 			}
 		}
 	}
 	return origin;
 }
+
 
 
 export function slugify(str: string): string

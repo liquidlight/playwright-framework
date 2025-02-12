@@ -1,5 +1,5 @@
 import { test as base } from "@playwright/test";
-import { copyInstance, getHostForEnv } from "./utils.js";
+import { copyInstance, getHostForEnv } from "./../utils.js";
 
 type FrameworkOptions = {
 	hosts: {
