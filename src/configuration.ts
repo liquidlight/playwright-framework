@@ -2,6 +2,7 @@ import type { Project } from '@playwright/test';
 import type {
 	ConfigurationOptions,
 	FrameworkTestConfig,
+	Hosts
 } from './types.js';
 
 import { baseConfig } from './baseConfig.js';
@@ -14,7 +15,7 @@ import {
 export default function(
 	options: ConfigurationOptions = {
 		// Set hosts if you want
-		hosts: [],
+		hosts: [] as Hosts,
 		// Specific devices if different to default
 		inputDevices: [],
 	},
@@ -36,7 +37,7 @@ export default function(
 
 	baseConfig.projects = projects;
 
-	if (options.hosts?.length > 1) {
+	if (options.hosts && options.hosts.length > 0) {
 		if (!baseConfig.use) {
 			baseConfig.use = {};
 		}

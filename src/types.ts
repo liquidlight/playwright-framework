@@ -1,12 +1,15 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 
-import typo3site from './typo3site.js';
-
 // A default "Object" for deep merge
 export type PlainObject = Record<string, any>;
 
+// A single Site in a host
+export type HostSite = {
+	[key: string]: string;
+}
+
 // How should the hosts be formatted
-export type Hosts = Array<{ [key: string]: string }> | typeof typo3site;
+export type Hosts = HostSite[];
 
 // Define additional parameters
 export type FrameworkTest = {
@@ -16,9 +19,9 @@ export type FrameworkTest = {
 // The first object of the configuration function
 export interface ConfigurationOptions {
 	// Set hosts
-	hosts: Hosts;
+	hosts?: Hosts;
 	// Specific devices if different to default
-	inputDevices: string[];
+	inputDevices?: string[];
 }
 
 // Extend the existing PlaywrightTestConfig
