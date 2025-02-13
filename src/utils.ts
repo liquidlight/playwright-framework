@@ -41,7 +41,7 @@ export function convertDeviceToPlaywrightProject(device: string = '', config?: P
 }
 
 // Swap a host based on environment
-export function getHostForEnv(hosts: any, path: string): string {
+export function matchUrlHostToEnv(hosts: any, path: string): string {
 	// Is the path a valid URL
 	if (!URL.canParse(path)) {
 		return path;
@@ -51,14 +51,14 @@ export function getHostForEnv(hosts: any, path: string): string {
 	const url = new URL(path);
 
 	// Get the new origin
-	const base = swapEnvHostname(hosts, normalizeUrl(url.origin));
+	const base = matchHostnameToEnv(hosts, normalizeUrl(url.origin));
 
 	// Reconstruct the URL with the new base
 	return normalizeUrl(base) + url.pathname + url.search + url.hash;
 }
 
 // Swap the host based on environment
-export function swapEnvHostname(hosts: any[], origin: string): string {
+export function matchHostnameToEnv(hosts: any[], origin: string): string {
 	// Get the current environment
 	const env = getEnv();
 

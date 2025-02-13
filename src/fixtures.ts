@@ -1,7 +1,7 @@
 import type { FrameworkTest } from "./types.js";
 
 import { test as playwrightTest } from "@playwright/test";
-import { getHostForEnv } from "./utils.js";
+import { matchHostToEnv } from "./utils.js";
 
 /**
  * Test
@@ -22,7 +22,7 @@ export const test = playwrightTest.extend< FrameworkTest >({
 			// Get the URL we're going to
 			const url = request.url(),
 				// Run it against the match functions
-				matchedHost = getHostForEnv(hosts, url);
+				matchedHost = matchHostToEnv(hosts, url);
 
 			// If they are different
 			if (url !== matchedHost) {
@@ -55,7 +55,7 @@ export const test = playwrightTest.extend< FrameworkTest >({
 		// Overwrite the goto function
 		page.goto = async (url: string, options?) => {
 			// Define URL with correct host
-			url = (getHostForEnv(hosts, url) ?? url)
+			url = (matchHostToEnv(hosts, url) ?? url)
 
 			// Carry on with the original page.goto
 			await goto(url, options);
