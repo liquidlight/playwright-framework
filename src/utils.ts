@@ -40,17 +40,6 @@ export function convertDeviceToPlaywrightProject(device: string = '', config?: P
 	return item;
 }
 
-// Copy an object
-export function copyInstance(original: object) {
-	const copied = Object.assign(
-		Object.create(
-			Object.getPrototypeOf(original)
-		),
-		original
-	);
-	return copied;
-}
-
 // Swap a host based on environment
 export function getHostForEnv(hosts: any, path: string): string {
 	// Is the path a valid URL
@@ -65,7 +54,7 @@ export function getHostForEnv(hosts: any, path: string): string {
 	const base = swapEnvHostname(hosts, normalizeUrl(url.origin));
 
 	// Reconstruct the URL with the new base
-	return base + url.pathname + url.search + url.hash;
+	return normalizeUrl(base) + url.pathname + url.search + url.hash;
 }
 
 // Swap the host based on environment
@@ -79,8 +68,12 @@ export function swapEnvHostname(hosts: any[], origin: string): string {
 		const urls = new Set<string>(Object.values(host).map(url => normalizeUrl(url as string)));
 		// Is our origin in that set?
 		if (urls.has(origin)) {
-			// Return the new URL or, if it doesn't exist, the original
-			return host[env] as string || origin;
+			// Find the matching key without looping through all entries
+			for (const key in host) {
+				if (normalizeUrl(host[key]) === origin) {
+					return key === env ? origin : host[env] || origin;
+				}
+			}
 		}
 	}
 	return origin;

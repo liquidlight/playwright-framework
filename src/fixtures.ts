@@ -1,7 +1,7 @@
 import type { FrameworkTest } from "./types.js";
 
 import { test as playwrightTest } from "@playwright/test";
-import { copyInstance, getHostForEnv } from "./utils.js";
+import { getHostForEnv } from "./utils.js";
 
 /**
  * Test
@@ -15,21 +15,53 @@ export const test = playwrightTest.extend< FrameworkTest >({
 		{ option: true }
 	],
 
+	context: async ({ browser, hosts }, use) => {
+		const context = await browser.newContext();
+		// Intercept all routes
+		await context.route('**', async (route, request) => {
+			// Get the URL we're going to
+			const url = request.url(),
+				// Run it against the match functions
+				matchedHost = getHostForEnv(hosts, url);
+
+			// If they are different
+			if (url !== matchedHost) {
+				// Redirect to the matched host
+				await route.fulfill({
+					status: 302,
+					headers: {
+						'location': matchedHost,
+					},
+					body: ''
+				});
+
+				return;
+			}
+
+			// Otherwise continue on our way
+			await route.continue();
+		});
+
+		await use(context);
+		await context.close();
+	},
+
+	// Overwrite the page
 	// Overwrite the page
 	page: async ({ page, hosts }, use) => {
-		// Create a clone of the page object
-		const frameworkPage = copyInstance(page);
+		// Create a reference of the original goto
+		const goto = page.goto.bind(page);
 
 		// Overwrite the goto function
-		frameworkPage.goto = async function(url: string, options = {}) {
+		page.goto = async (url: string, options?) => {
 			// Define URL with correct host
 			url = (getHostForEnv(hosts, url) ?? url)
 
 			// Carry on with the original page.goto
-			await page.goto(url, options);
+			await goto(url, options);
 		}
 
-		// Use the `frameworkPage` object
-		await use(frameworkPage);
+		// Use the page
+		await use(page);
 	},
 });
