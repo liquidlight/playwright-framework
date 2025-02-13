@@ -1,10 +1,12 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 
+import typo3site from './typo3site.js';
+
 // A default "Object" for deep merge
 export type PlainObject = Record<string, any>;
 
 // How should the hosts be formatted
-export type Hosts = Array<{ [key: string]: string }>;
+export type Hosts = Array<{ [key: string]: string }> | typeof typo3site;
 
 // Define additional parameters
 export type FrameworkTest = {

@@ -25,7 +25,7 @@ export default function(
 	const projects: Project[] = [];
 
 	// Redefine in case an empty array is passed in
-	const devices = options.inputDevices.length ? options.inputDevices : defaultDevices
+	const devices = options.inputDevices?.length ? options.inputDevices : defaultDevices
 
 	// Send the first device & search for unit, spec & test files
 	projects.push(convertDeviceToPlaywrightProject(devices.shift()));
@@ -36,7 +36,7 @@ export default function(
 
 	baseConfig.projects = projects;
 
-	if (options.hosts.length > 1) {
+	if (options.hosts?.length > 1) {
 		if (!baseConfig.use) {
 			baseConfig.use = {};
 		}
