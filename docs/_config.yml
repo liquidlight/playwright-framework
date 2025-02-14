@@ -1,0 +1,9 @@
+title: Playwright Framework
+description: A framework of sensible config & utilises for use with Playwright
+theme: just-the-docs
+
+url: https://liquidlight.github.io/playwright-framework/
+
+aux_links:
+  Github: https://liquidlight.github.io/playwright-framework/
+  NPM: https://www.npmjs.com/package/@liquidlight/playwright-framework
