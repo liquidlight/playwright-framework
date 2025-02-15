@@ -3,12 +3,17 @@
  * Exports
  * ====
  */
+// Types
+export type * from './types.js';
 
 // Playwright exports to simplify includes
 export { defineConfig, expect } from '@playwright/test';
 
 // Modified Playwright test
 export { test } from './fixtures.js';
+
+// The base configuration
+export { baseConfig } from './baseConfig.js';
 
 // The generated config
 export { default as configuration } from './configuration.js';
