@@ -1,6 +1,6 @@
 ---
-title: Home
-layout: home
+title: Overview
+nav_order: 1
 ---
 
 # Playwright Framework
@@ -10,7 +10,7 @@ A framework of sensible config & utilises for use with [Playwright](https://play
 ## Features
 
 - Multiple dynamic URLs & hosts based on environment
-- TYPO3 functions to utlise site config for URLs
+- TYPO3 functions to utilise site config for URLs
 - [Monocart reporter](https://github.com/cenfun/monocart-reporter) configured by default
 - Scaleable test size suite based on filename - use one or multiple devices by using a different suffix
 - Sensible default Playwright configuration

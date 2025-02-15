@@ -2,7 +2,14 @@
 
 A framework of sensible config & utilises for use with [Playwright](https://playwright.dev/).
 
+ESM and CJS compatible; this framework offers dynamic URL and test matching, sensible default (with Monocart preconfigured) along with TYPO3 related enhancements.
+
 **[View the documentation](https://liquidlight.github.io/playwright-framework/)**
+
+Legacy installations can find the relevant documentation on the tags:
+
+- [1.1.0](https://github.com/liquidlight/playwright-framework/tree/1.1.0) for ESM
+- [0.4.0-beta.1](https://github.com/liquidlight/playwright-framework/tree/0.4.0-beta.1) for CommonJS
 
 ## Framework development
 
