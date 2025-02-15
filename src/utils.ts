@@ -13,7 +13,12 @@ import { devices } from '@playwright/test';
 export const defaultDevices: string[] = ['Desktop Edge', 'Desktop Safari', 'iPhone 14'];
 
 // Get the current environment
-export const getEnv = () => process.env.npm_config_env || process.env.PLAYWRIGHT_ENV || 'local';
+export const getEnv = () =>
+	process.env.npm_config_env ||
+	process.env.PLAYWRIGHT_ENV ||
+	process.env.ENV ||
+	'local'
+;
 
 export const normalizeUrl = (url: string) => url.endsWith('/') ? url.slice(0, -1) : url;
 
