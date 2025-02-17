@@ -25,8 +25,18 @@ export default function(
 	// Collate PLaywright projects
 	const projects: Project[] = [];
 
-	// Redefine in case an empty array is passed in
-	const devices = options.inputDevices?.length ? options.inputDevices : defaultDevices
+	// Any devices in environment variable?
+	let envDevices = process.env.PLAYWRIGHT_DEVICES ?
+		process.env.PLAYWRIGHT_DEVICES.split(',').map(d => d.trim()) :
+		null;
+
+	const devices = envDevices ??
+		(
+			options.inputDevices?.length ?
+			options.inputDevices :
+			defaultDevices
+		)
+	;
 
 	// Send the first device & search for unit, spec & test files
 	projects.push(convertDeviceToPlaywrightProject(devices.shift()));
