@@ -14,12 +14,17 @@ This relies on `download.path` which the [Playwright docs state](https://playwri
 import { test } from '@playwright/test';
 
 test('Ensure standards translations are available', async ({ page }) => {
-    await page.goto('/s');
+	await page.goto('/downloads');
 
-    const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('button', { name: 'Download' }).click();
+	// Download the PDF
+	const [download] = await Promise.all([
+		page.waitForEvent('download'),
+		page.getByRole('link', {name: 'Download'}).click()
+	]);
 
-    const download = await downloadPromise;
-    await download.path();
+	// The suggested filename should be download.pdf
+	const filename = download.suggestedFilename();
+	expect(filename.endsWith('.pdf')).toBeTruthy();
+
 });
 ```
