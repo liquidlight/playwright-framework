@@ -14,6 +14,8 @@ npm i @liquidlight/playwright-framework -D --save
 
 ## Create configuration
 
+`playwright.config.ts`
+
 ### Standard
 
 ```ts
