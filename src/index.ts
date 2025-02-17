@@ -7,7 +7,7 @@
 export type * from './types.js';
 
 // Playwright exports to simplify includes
-export { defineConfig, expect } from '@playwright/test';
+export * from '@playwright/test';
 
 // Modified Playwright test
 export { test } from './fixtures.js';
