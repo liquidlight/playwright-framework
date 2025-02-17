@@ -18,6 +18,8 @@
     }
   },
   "files": [
+    "dist",
+    "dist/*",
     "dist/**/*"
   ],
   "homepage": "https://github.com/liquidlight/playwright-framework#readme",
@@ -32,8 +34,7 @@
     "clean": "rm -rf ./dist",
     "build": "npm run clean && tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "prepack": "npm run build",
-    "lint": "eslint .",
-    "pack": "npm pack"
+    "lint": "eslint ."
   },
   "author": "Mike Street",
   "license": "ISC",
