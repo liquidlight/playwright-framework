@@ -27,7 +27,7 @@ npm i @liquidlight/playwright-framework -D --save
 Create a `playwright.config.ts` for your playwright configuration and include the `configuration` function from the framework
 
 ```ts
-import { defineConfig, configuration } from './src/index.js';
+import { defineConfig, configuration } from '@liquidlight/playwright-framework';
 
 export default defineConfig(
 	configuration({
