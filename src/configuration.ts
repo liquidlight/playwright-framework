@@ -26,7 +26,7 @@ export default function(
 	const projects: Project[] = [];
 
 	// Any devices in environment variable?
-	let envDevices = process.env.PLAYWRIGHT_DEVICES ?
+	const envDevices = process.env.PLAYWRIGHT_DEVICES ?
 		process.env.PLAYWRIGHT_DEVICES.split(',').map(d => d.trim()) :
 		null;
 
