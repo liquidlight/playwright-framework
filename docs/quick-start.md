@@ -6,6 +6,14 @@ nav_order: 3
 # Quick Start
 {: .no_toc }
 
+If you've used the framework before and just want to set it up. If you're new, [check out the installation guide](./installation).
+
+## Table of Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
 ## Install
 
 ```bash
