@@ -20,7 +20,7 @@ export default defineConfig(
 		],
 		inputDevices: [...defaultDevices, 'Pixel 5']
 	}, {
-		testDir: './tests-playwright',
+		testDir: './tests/playwright',
 		reporter: [['list'], ['html']]
 	})
 );

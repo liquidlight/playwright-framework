@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach } from 'vitest';
-import { matchHostnameToEnv, matchUrlHostToEnv, normalizeUrl } from '../src/utils.js';
+import { matchHostnameToEnv, matchUrlHostToEnv, normalizeUrl } from '../../src/utils.js';
 
 // Mock hosts data
 const hosts = [

@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
-import { devices } from '../src/index';
-import { generateDynamicTestProjects, convertDeviceToPlaywrightProject } from '../src/utils'; // Adjust path
+import { devices } from '../../src/index';
+import { generateDynamicTestProjects, convertDeviceToPlaywrightProject } from '../../src/utils'; // Adjust path
 
 describe('convertDeviceToPlaywrightProject', () => {
 	test('should correctly convert a mobile device to a Playwright project', () => {

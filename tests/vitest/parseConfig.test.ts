@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 import fs from 'fs';
 import { parse } from 'yaml';
-import typo3site from './../src/typo3site.js';
+import typo3site from '../../src/typo3site.js';
 
 // Mock `fs.readFileSync` and `yaml.parse`
 vi.mock('node:fs')

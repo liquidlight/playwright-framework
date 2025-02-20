@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { deepMerge } from '../src/utils.js';
+import { deepMerge } from '../../src/utils.js';
 
 describe('deepMerge function', () => {
 	test('should merge two flat objects correctly', () => {

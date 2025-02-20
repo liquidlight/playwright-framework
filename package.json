@@ -36,8 +36,8 @@
     "prepack": "npm run build",
     "prepare": "npm run build",
     "lint": "eslint .",
-    "vitest": "vitest run tests-vitest/",
-    "vitest:watch": "vitest tests-vitest/",
+    "vitest": "vitest run tests/vitest/",
+    "vitest:watch": "vitest tests/vitest/",
     "playwright": "playwright test",
     "test": "npm run vitest && npm run playwright"
   },
