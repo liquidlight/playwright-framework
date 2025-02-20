@@ -38,4 +38,4 @@ jobs:
         run: npm run playwright
 
       - name: Run Vite tests
-        run: npm run vite
+        run: npm run vitest
