@@ -17,3 +17,8 @@ export interface Site {
 	// A Playwright project
 	project?: object
 }
+
+// The additional configuration for a project
+export interface ProjectConfig {
+	testsToFind: string;
+}

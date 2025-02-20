@@ -1,5 +1,4 @@
-import type { Site } from './types.js';
-import type { ProjectConfig } from './../types.js';
+import type { Site, ProjectConfig } from './types.js';
 import type { Project, PlaywrightTestOptions, PlaywrightWorkerOptions } from '@playwright/test';
 
 import { getEnv } from './../utils.js';
@@ -11,7 +10,7 @@ export function deprecationNotice()
 {
 	if(process.env.PWF_DEPRECATION_V1 !== 'true') {
 		console.warn('⚠️ Legacy functionality detected');
-		console.warn('The configuration is using deprectaed functionality which will be removed in the next version.');
+		console.warn('The configuration is using deprecated functionality which will be removed in the next version.');
 		console.warn('Please follow the migration guide to upgrade');
 		console.warn('[INSERT URL]');
 

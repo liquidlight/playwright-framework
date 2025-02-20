@@ -27,8 +27,9 @@ export const normalizeUrl = (url: string) => url.endsWith('/') ? url.slice(0, -1
  */
 export function generateDynamicTestProjects(projects: string[]): Project[]
 {
-	const firstMobile: string | undefined = projects.find(name => devices[name].isMobile);
-	const firstDesktop: string | undefined = projects.find(name => !devices[name].isMobile);
+
+	const firstMobile: string | undefined = projects.find(name => devices[name] ? devices[name].isMobile : undefined);
+	const firstDesktop: string | undefined = projects.find(name => devices[name] ? !devices[name].isMobile : undefined);
 
 	return projects.map((device, index) => convertDeviceToPlaywrightProject(
 		device,
