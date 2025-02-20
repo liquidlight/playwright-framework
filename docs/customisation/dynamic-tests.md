@@ -8,11 +8,18 @@ parent: Customisation
 
 The framework has the ability to run different tests on different devices based on the filename. This also helps you identify what the kind of test is.
 
-Tests can have one of three suffixes:
+Tests can have one of three main suffixes:
 
 - `.unit.ts` - will be run by the first device
 - `.spec.ts` - will be run by the first device
 - `.test.ts` - will be run by all devices
+
+As a subset, each of these can be prefixed with `mobile` or `desktop`
+
+E.g.
+
+- `.mobile.spec.ts` - will be run by the first **mobile** device
+- `.desktop.test.ts` - will be run by all **desktop** devices
 
 **Note**: The dynamic running is only available if you have used the [projects provided by the framework](./devices).
 
@@ -35,3 +42,7 @@ This is handy for checking server-side functionality which doesn't rely on brows
 ### `.test.ts`
 
 These tests are run by all the projects/devices specified
+
+## `mobile|desktop`
+
+This is identified by the `isMobile` flag in the [playwright device](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json).

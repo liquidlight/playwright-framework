@@ -33,5 +33,7 @@ export interface FrameworkTestConfig extends PlaywrightTestConfig {
 
 // The additional configuration for a project
 export interface ProjectConfig {
-	testsToFind: string;
+	firstDevice: boolean;
+	firstMobile: boolean;
+	firstDesktop: boolean;
 }

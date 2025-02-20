@@ -7,9 +7,9 @@ import type {
 
 import { baseConfig } from './baseConfig.js';
 import {
-	convertDeviceToPlaywrightProject,
 	defaultDevices,
-	deepMerge
+	deepMerge,
+	generateDynamicTestProjects
 } from './utils.js';
 
 export default function(
@@ -22,9 +22,6 @@ export default function(
 
 	configOverride: FrameworkTestConfig = {}
 ): any {
-	// Collate PLaywright projects
-	const projects: Project[] = [];
-
 	// Any devices in environment variable?
 	const envDevices = process.env.PLAYWRIGHT_DEVICES ?
 		process.env.PLAYWRIGHT_DEVICES.split(',').map(d => d.trim()) :
@@ -38,14 +35,7 @@ export default function(
 		)
 	;
 
-	// Send the first device & search for unit, spec & test files
-	projects.push(convertDeviceToPlaywrightProject(devices.shift()));
-	// Create a site for each remaining device & only search for `.test` files
-	for (const device of (devices ?? [])) {
-		projects.push(convertDeviceToPlaywrightProject(device, { testsToFind: 'test' }));
-	}
-
-	baseConfig.projects = projects;
+	baseConfig.projects = generateDynamicTestProjects(devices);
 
 	if (options.hosts && options.hosts.length > 0) {
 		if (!baseConfig.use) {

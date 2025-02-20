@@ -1,6 +1,6 @@
-import {test} from './../src/index.js';
+import {test, expect} from './../src/index.js';
 
 test('Device check: Desktop | Test', async ({}, testInfo) => {
-	console.log('Name:' + testInfo.project.name);
-	console.log('Browser:' + testInfo.project.use.defaultBrowserType);
+	expect(testInfo.project.use.isMobile).toBe(false);
+	expect(['Desktop Edge', 'Desktop Safari']).toContain(testInfo.project.name);
 });

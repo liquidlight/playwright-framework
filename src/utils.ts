@@ -25,23 +25,65 @@ export const normalizeUrl = (url: string) => url.endsWith('/') ? url.slice(0, -1
 /**
  * Functions
  */
+export function generateDynamicTestProjects(projects: string[]): Project[]
+{
+	const firstMobile: string | undefined = projects.find(name => devices[name].isMobile);
+	const firstDesktop: string | undefined = projects.find(name => !devices[name].isMobile);
+
+	return projects.map((device, index) => convertDeviceToPlaywrightProject(
+		device,
+		{
+			firstDevice: (index === 0),
+			firstMobile: (device === firstMobile),
+			firstDesktop: (device === firstDesktop),
+		}
+	));
+}
 
 // Convert a single device name to a Playwright project
-export function convertDeviceToPlaywrightProject(device: string = '', config?: ProjectConfig): Project {
+export function convertDeviceToPlaywrightProject(title: string = '', config?: ProjectConfig): Project {
+	const deviceConfig = devices[title];
+
+	if (!deviceConfig) {
+		throw new Error(`Device configuration not found: ${title}`);
+	}
+
 	// Create an item for the device
-	const item: any = {
-		name: device,
-		use: devices[device]
-	}
+	const firstDeviceTest = 'unit|spec',
+		item: any = {
+			name: title,
+			use: deviceConfig,
+			testMatch: []
+		},
+		testMatch = [
+			// Every device should match `filename.test.ts`
+			'test'
+		]
+	;
 
-	// If the tes file name is not specified, use the default
-	let testsToFind = 'unit|spec|test';
-	if (config && Object.prototype.hasOwnProperty.call(config, 'testsToFind')) {
-		testsToFind = config.testsToFind;
-	}
+	// If the first device, match filename.unit.ts & filename.spec.ts
+	testMatch.push(config?.firstDevice ? firstDeviceTest : '');
 
-	item.testMatch = '**/*.@(' + testsToFind + ').?(c|m)[jt]s?(x)';
+	// If the device is mobile, add `filename.mobile.test.ts
+	testMatch.push(
+			deviceConfig.isMobile ?
+			'mobile\\.(test' + (config?.firstMobile ? `|${firstDeviceTest}` : '') + ')'
+			: ''
+	);
 
+	// If the device is mobile, add `filename.mobile.test.ts
+	testMatch.push(
+			!deviceConfig.isMobile ?
+			'desktop\\.(test' + (config?.firstMobile ? `|${firstDeviceTest}` : '') + ')'
+			: ''
+	);
+
+	item.testMatch = testMatch
+		.filter((match: string) => match)
+		.map(match => new RegExp(`^[^.]+\\.(${match})\\.[cm]?[jt]sx?$`));
+	;
+
+	// Return the item
 	return item;
 }
 
