@@ -1,4 +1,4 @@
-import {test, expect} from './../src/index.js';
+import {test} from './../src/index.js';
 
 test('Hosts get substituted when using goto', async ({page, hosts}) => {
 

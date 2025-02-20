@@ -6,6 +6,7 @@ module.exports = {
 	root: true,
 	ignorePatterns: ["**/dist/**"],
 	rules: {
-		'@typescript-eslint/no-explicit-any': 0
+		'@typescript-eslint/no-explicit-any': 0,
+		'no-empty-pattern': ["error", { "allowObjectPatternsAsParameters": true }]
 	}
 };
