@@ -49,39 +49,33 @@ export function convertDeviceToPlaywrightProject(title: string = '', config?: Pr
 	}
 
 	// Create an item for the device
-	const firstDeviceTest = 'unit|spec',
+	const firstDeviceTest = '|unit|spec',
 		item: any = {
 			name: title,
 			use: deviceConfig,
 			testMatch: []
-		},
-		testMatch = [
-			// Every device should match `filename.test.ts`
-			'test'
-		]
-	;
+		};
 
 	// If the first device, match filename.unit.ts & filename.spec.ts
-	testMatch.push(config?.firstDevice ? firstDeviceTest : '');
+	item.testMatch.push('test' + (config?.firstDevice ? firstDeviceTest : ''));
 
 	// If the device is mobile, add `filename.mobile.test.ts
-	testMatch.push(
+	item.testMatch.push(
 			deviceConfig.isMobile ?
-			'mobile\\.(test' + (config?.firstMobile ? `|${firstDeviceTest}` : '') + ')'
+			'mobile\\.(test' + (config?.firstMobile ? firstDeviceTest : '') + ')'
 			: ''
 	);
 
 	// If the device is mobile, add `filename.mobile.test.ts
-	testMatch.push(
+	item.testMatch.push(
 			!deviceConfig.isMobile ?
-			'desktop\\.(test' + (config?.firstMobile ? `|${firstDeviceTest}` : '') + ')'
+			'desktop\\.(test' + (config?.firstDesktop ? firstDeviceTest : '') + ')'
 			: ''
 	);
 
-	item.testMatch = testMatch
+	item.testMatch = item.testMatch
 		.filter((match: string) => match)
-		.map(match => new RegExp(`^[^.]+\\.(${match})\\.[cm]?[jt]sx?$`));
-	;
+		.map((match: string) => new RegExp(`^[^.]+\\.(${match})\\.[cm]?[jt]sx?$`));
 
 	// Return the item
 	return item;

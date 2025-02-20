@@ -35,7 +35,11 @@
     "build": "npm run clean && tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "prepack": "npm run build",
     "prepare": "npm run build",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "vitest": "vitest run tests-vitest/",
+    "vitest:watch": "vitest tests-vitest/",
+    "playwright": "playwright test",
+    "test": "npm run vitest && npm run playwright"
   },
   "author": "Mike Street",
   "license": "ISC",
@@ -53,6 +57,7 @@
     "@typescript-eslint/eslint-plugin": "^6.14",
     "@typescript-eslint/parser": "^6.14",
     "eslint": "^8.55",
-    "typescript": "^5.3"
+    "typescript": "^5.3",
+    "vitest": "^3.0.6"
   }
 }

@@ -1,4 +1,3 @@
-import type { Project } from '@playwright/test';
 import type {
 	ConfigurationOptions,
 	FrameworkTestConfig,

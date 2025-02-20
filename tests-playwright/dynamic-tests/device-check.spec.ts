@@ -1,4 +1,4 @@
-import {test, expect} from './../src/index.js';
+import {test, expect} from './../../src/index.js';
 
 test('Device check: Spec', async ({ }, testInfo) => {
 	expect(true).toBe(true);
