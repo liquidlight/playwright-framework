@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import { defaultDevices, getEnv } from '../../src/utils.js';
+import { defaultDevices, getEnv } from '../../src/utils';
 
 describe('Default Devices', () => {
 	test('Default devices are as expected', () => {

@@ -1,4 +1,4 @@
-import {test, expect} from './../../src/index.js';
+import {test, expect} from './../../src/index';
 
 test('Device check: Desktop | Test', async ({}, testInfo) => {
 	expect(testInfo.project.use.isMobile).toBe(false);
