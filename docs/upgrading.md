@@ -41,8 +41,44 @@ test('Language Switcher - Desktop', async({ page }) => {
 
 1. Copy the [example configuration](https://liquidlight.github.io/playwright-framework/installation.html#create-configuration) from the docs into your config file
 2. Move the `envs` object from your [site config](https://github.com/liquidlight/playwright-framework/blob/0.4.0-beta.1/README.md#playwright-config) and pass it into the `hosts` array in the [`configuration` function](https://liquidlight.github.io/playwright-framework/customisation/configuration-function.html)
+3. If you have overwritten the devices, migrate from the second parameter of `framework` to inside the first parameter object with a key of `devices`
+
+Example changes:
+
+- Call `configuration` & `defineConfig` from `'@liquidlight/playwright-framework'` instead of `'@playwright/test'`
+- Pass `configuration()` to Playwright's `defineConfig()`
 
 #### From v1
+
+```diff
+-import { defineConfig } from '@playwright/test';
+-import { framework } from '@liquidlight/playwright-framework';
++import { configuration, defineConfig } from '@liquidlight/playwright-framework';
+
+-const config = framework([
+-	{
+-		label: 'Site name',
+-		envs: {
+			local: 'https://liquidlight.ddev.site',
+			production: 'https://www.liquidlight.co.uk',
+-		},
+-		project: {
+-			testDir: './path/to/site/files/'
+-		}
+-	}
+-]);
+
++export default defineConfig(
++	configuration({
++		hosts: [
++			{
+				local: 'https://liquidlight.ddev.site',
+				production: 'https://www.liquidlight.co.uk',
++			}
++		]
++	})
++);
+```
 
 #### From v0
 
@@ -76,13 +112,14 @@ test('Language Switcher - Desktop', async({ page }) => {
 +);
 ```
 
-##### TYPO3
+#### TYPO3
 
 If you are using the `typo3Config`, include the new `typo3site` method inside the `hosts` array and remove the file path. [See an exmaple in the docs](https://liquidlight.github.io/playwright-framework/customisation/typo3site.html).
 
 ```diff
 -import { defineConfig } from '@playwright/test';
 -import typo3Config from '@liquidlight/playwright-framework/typo3';
++ import { configuration, defineConfig, typo3site } from '@liquidlight/playwright-framework';
 
 -const config = require('@liquidlight/playwright-framework')([
 -	typo3Config('liquidlight', './path/to/files')
