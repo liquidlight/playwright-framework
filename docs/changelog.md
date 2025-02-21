@@ -5,6 +5,19 @@ nav_order: 99
 
 # Changelog
 
+## 2.0.0
+
+**21st February 2024**
+
+#### Feature
+
+- Complete re-write of functionality (see [upgrading docs](./upgrading.md) for details)
+- Added dynamic host switching - swaps the base domain depending on environment
+- Refined dynamic test - added `.mobile` and `.desktop` prefixes to target
+- Moved away from projects per folder and only have device projects
+- Refined `typo3` function
+- Removed `testbed`
+
 ## 1.1.0
 
 **3rd October 2024**

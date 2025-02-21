@@ -8,6 +8,6 @@ ESM and CommonJS compatible; this framework offers dynamic URLs/Hosts, dynamic t
 
 Legacy installations can find the relevant documentation on the tags:
 
-- [main](https://github.com/liquidlight/playwright-framework/tree/main) for ESM & CommonJS
-- [1.1.0](https://github.com/liquidlight/playwright-framework/tree/1.1.0) for ESM
-- [0.4.0-beta.1](https://github.com/liquidlight/playwright-framework/tree/0.4.0-beta.1) for CommonJS
+- [2.x](https://github.com/liquidlight/playwright-framework/tree/main) for ESM & CommonJS
+- [1.x](https://github.com/liquidlight/playwright-framework/tree/1.1.0) for ESM
+- [0.x](https://github.com/liquidlight/playwright-framework/tree/0.4.0-beta.1) for CommonJS
