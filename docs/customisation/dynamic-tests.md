@@ -19,6 +19,8 @@ As a subset, each of these can be prefixed with `mobile` or `desktop`
 E.g.
 
 - `.mobile.spec.ts` - will be run by the first **mobile** device
+- `.mobile.spec.ts` - will be run by all **mobile** devices
+- `.desktop.spec.ts` - will be run by the first **desktop** device
 - `.desktop.test.ts` - will be run by all **desktop** devices
 
 **Note**: The dynamic running is only available if you have used the [projects provided by the framework](./devices).
