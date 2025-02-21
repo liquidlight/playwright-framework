@@ -10,7 +10,7 @@ import { devices } from '@playwright/test';
  */
 
 // What default devices should we test on
-export const defaultDevices: string[] = ['Desktop Edge', 'Desktop Safari', 'iPhone 14'];
+export const defaultDevices: string[] = ['Desktop Edge', 'Desktop Safari', 'iPhone 15'];
 
 // Get the current environment
 export const getEnv = () =>

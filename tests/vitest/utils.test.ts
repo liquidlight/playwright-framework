@@ -3,7 +3,7 @@ import { defaultDevices, getEnv } from '../../src/utils';
 
 describe('Default Devices', () => {
 	test('Default devices are as expected', () => {
-		expect(defaultDevices).toStrictEqual(['Desktop Edge', 'Desktop Safari', 'iPhone 14']);
+		expect(defaultDevices).toStrictEqual(['Desktop Edge', 'Desktop Safari', 'iPhone 15']);
 	});
 });
 

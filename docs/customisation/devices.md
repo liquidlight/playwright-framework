@@ -7,7 +7,7 @@ parent: Customisation
 When using the [configuration function](./configuration-function) to generate your baseline config, there are 3 preconfigured projects by default. These are:
 
 ```
-['Desktop Edge', 'Desktop Safari', 'iPhone 14']
+['Desktop Edge', 'Desktop Safari', 'iPhone 15']
 ```
 
 These devices are part of Playwright and you can see a [full list of available emulators](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json) on Github.
