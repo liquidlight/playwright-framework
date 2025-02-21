@@ -1,6 +1,6 @@
 ---
 title: Upgrading to v2
-nav_order: 98
+nav_order: 97
 ---
 
 # Upgrading to v2
@@ -28,7 +28,7 @@ For example:
 
 test('Language Switcher - Desktop', async({ page }) => {
 -	await page.goto('/');
-+   await page.goto('https://liquidlight.ddev.site/');
++	await page.goto('https://liquidlight.ddev.site/');
 	await page.getByRole('button', { name: 'English' }).click();
 	await page.getByRole('link', { name: 'Français' }).click();
 
@@ -51,16 +51,16 @@ test('Language Switcher - Desktop', async({ page }) => {
 +import { configuration, defineConfig } from '@liquidlight/playwright-framework';
 
 -const config = require('@liquidlight/playwright-framework')([
--   {
--        label: 'Site name',
--        envs: {
-            local: 'https://liquidlight.ddev.site',
-            production: 'https://www.liquidlight.co.uk',
--        },
--        project: {
--            testDir: './path/to/site/files/'
--        }
--    }
+-	{
+-		label: 'Site name',
+-		envs: {
+			local: 'https://liquidlight.ddev.site',
+			production: 'https://www.liquidlight.co.uk',
+-		},
+-		project: {
+-			testDir: './path/to/site/files/'
+-		}
+-	}
 -]);
 -module.exports = defineConfig(config);
 
@@ -69,7 +69,7 @@ test('Language Switcher - Desktop', async({ page }) => {
 +		hosts: [
 +			{
 				local: 'https://liquidlight.ddev.site',
-                production: 'https://www.liquidlight.co.uk',
+				production: 'https://www.liquidlight.co.uk',
 +			}
 +		]
 +	})
@@ -81,11 +81,11 @@ test('Language Switcher - Desktop', async({ page }) => {
 If you are using the `typo3Config`, include the new `typo3site` method inside the `hosts` array and remove the file path. [See an exmaple in the docs](https://liquidlight.github.io/playwright-framework/customisation/typo3site.html).
 
 ```diff
-- import { defineConfig } from '@playwright/test';
-- import typo3Config from '@liquidlight/playwright-framework/typo3';
+-import { defineConfig } from '@playwright/test';
+-import typo3Config from '@liquidlight/playwright-framework/typo3';
 
-- const config = require('@liquidlight/playwright-framework')([
--    typo3Config('liquidlight', './path/to/files')
+-const config = require('@liquidlight/playwright-framework')([
+-	typo3Config('liquidlight', './path/to/files')
 -]);
 -module.exports = defineConfig(config);
 
