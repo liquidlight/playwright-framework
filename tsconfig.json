@@ -2,7 +2,8 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "es2022",
+    "module": "esnext",
+    "target": "esnext",
     "verbatimModuleSyntax": false,
     "allowJs": true,
     "moduleDetection": "force",
@@ -12,7 +13,7 @@
     "outDir": "dist",
     "sourceMap": true,
     "lib": [
-      "es2022"
+      "esnext"
     ],
     "declaration": true
   },

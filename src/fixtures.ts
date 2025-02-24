@@ -2,6 +2,7 @@ import type { FrameworkTest } from "./types.js";
 
 import { test as playwrightTest } from "@playwright/test";
 import { matchUrlHostToEnv } from "./utils.js";
+import path from 'node:path';
 
 /**
  * Test
@@ -46,7 +47,7 @@ export const test = playwrightTest.extend< FrameworkTest >({
 		await context.close();
 	},
 
-	// Overwrite the page
+	// Overwrite & Extend the page
 	page: async ({ page, hosts }, use) => {
 		// Create a reference of the original goto
 		const goto = page.goto.bind(page);
@@ -58,6 +59,32 @@ export const test = playwrightTest.extend< FrameworkTest >({
 
 			// Carry on with the original page.goto
 			return goto(url, options);
+		}
+
+		/**
+		 * Simpler jQuery inclusion
+		 *
+		 * version can be `latest`, `local` or a version number
+		 */
+		page.addJQuery = async (version: string = 'local') => {
+
+			let jQueryPath;
+
+			switch(version) {
+				case 'local':
+					jQueryPath = path.resolve('node_modules/jquery/dist/jquery.min.js');
+					break;
+				case 'latest':
+					jQueryPath = 'https://www.unpkg.com/jquery/dist/jquery.min.js';
+					break;
+				default:
+					jQueryPath = `https://www.unpkg.com/jquery@${version}/dist/jquery.min.js`;
+					break;
+			}
+
+			return await page.addScriptTag({
+				path: jQueryPath
+			});
 		}
 
 		// Use the page
