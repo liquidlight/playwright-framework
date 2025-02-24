@@ -22,4 +22,4 @@ export { default as configuration } from './configuration.js';
 export { default as typo3site } from './typo3site.js';
 
 // Utils
-export { defaultDevices, getEnv } from './utils.js';
+export { defaultDevices, getEnv, matchHostnameToEnv } from './utils.js';
