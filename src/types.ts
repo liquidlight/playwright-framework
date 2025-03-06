@@ -1,4 +1,4 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
+import type { PlaywrightTestConfig, Page } from '@playwright/test';
 
 // A default "Object" for deep merge
 export type PlainObject = Record<string, any>;
@@ -11,9 +11,14 @@ export type HostSite = {
 // How should the hosts be formatted
 export type Hosts = HostSite[];
 
+export interface FrameworkPage extends Page {
+	setContentAndScriptTag: () => void;
+}
+
 // Define additional parameters
 export type FrameworkTest = {
 	hosts: Hosts;
+	page: FrameworkPage
 }
 
 // The first object of the configuration function

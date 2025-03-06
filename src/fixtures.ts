@@ -60,6 +60,20 @@ export const test = playwrightTest.extend< FrameworkTest >({
 			return goto(url, options);
 		}
 
+		/**
+		 * Allow quick setting of HTML and JS file
+		 * @param content The HTML content
+		 * @param path the path to the JS file
+		 */
+		page.setContentAndScriptTag = async (content: string = '', path: string = '') => {
+			await page.setContent(content);
+
+			// Load the JS
+			await page.addScriptTag({
+				path,
+			});
+		}
+
 		// Use the page
 		await use(page);
 	}
