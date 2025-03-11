@@ -54,7 +54,10 @@ export const test = playwrightTest.extend< FrameworkTest >({
 		// Overwrite the goto function
 		page.goto = async (url: string, options?) => {
 			// Define URL with correct host
-			url = (matchUrlHostToEnv(hosts, url) ?? url)
+			url = (matchUrlHostToEnv(hosts, url) ?? url);
+
+			// Add URL as annotation
+			test.info().annotations.push({type: 'goto', description: url});
 
 			// Carry on with the original page.goto
 			return goto(url, options);
