@@ -10,7 +10,7 @@ nav_order: 97
 Update your `package.json` to use `^2.0.0` or run 
 
 ```
-npm i @liquidlight/playwright-framework@2.0.0
+npm i @liquidlight/playwright-framework@2.0.0 --save-dev
 ```
 
 ## Files

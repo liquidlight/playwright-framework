@@ -17,7 +17,7 @@ If you've used the framework before and just want to set it up. If you're new, [
 ## Install
 
 ```bash
-npm i @liquidlight/playwright-framework -D --save
+npm i @liquidlight/playwright-framework --save-dev
 ```
 
 ## Create configuration

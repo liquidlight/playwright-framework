@@ -19,7 +19,7 @@ If you've used this library before and just want to set it up again, check out t
 First, install the NPM module
 
 ```bash
-npm i @liquidlight/playwright-framework -D --save
+npm i @liquidlight/playwright-framework --save-dev
 ```
 
 ## Create configuration
