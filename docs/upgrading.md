@@ -119,7 +119,7 @@ If you are using the `typo3Config`, include the new `typo3site` method inside th
 ```diff
 -import { defineConfig } from '@playwright/test';
 -import typo3Config from '@liquidlight/playwright-framework/typo3';
-+ import { configuration, defineConfig, typo3site } from '@liquidlight/playwright-framework';
++import { configuration, defineConfig, typo3site } from '@liquidlight/playwright-framework';
 
 -const config = require('@liquidlight/playwright-framework')([
 -	typo3Config('liquidlight', './path/to/files')
@@ -128,7 +128,7 @@ If you are using the `typo3Config`, include the new `typo3site` method inside th
 
 +export default defineConfig(
 +	configuration({
-+	hosts: [
++		hosts: [
 +			typo3site('liquidlight')
 +		]
 +	})
