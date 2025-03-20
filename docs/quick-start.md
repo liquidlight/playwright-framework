@@ -20,6 +20,8 @@ If you've used the framework before and just want to set it up. If you're new, [
 npm i @liquidlight/playwright-framework --save-dev
 ```
 
+**Note:** Depending on your local `npm` set up (if you have `save=false` in your `.npmrc` file), you may need `npm i @liquidlight/playwright-framework --save -D` instead
+
 ## Create configuration
 
 `playwright.config.ts`

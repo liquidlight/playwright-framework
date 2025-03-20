@@ -22,6 +22,8 @@ First, install the NPM module
 npm i @liquidlight/playwright-framework --save-dev
 ```
 
+**Note:** Depending on your local `npm` set up (if you have `save=false` in your `.npmrc` file), you may need `npm i @liquidlight/playwright-framework --save -D` instead
+
 ## Create configuration
 
 Create a `playwright.config.ts` for your playwright configuration and include the `configuration` function from the framework
