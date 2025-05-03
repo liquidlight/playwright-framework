@@ -28,11 +28,11 @@ export const baseConfig: FrameworkTestConfig = {
 	reporter: (
 		process.env.CI ?
 			[
-				['line'],
+				['dot'],
 				[
 					'junit',
 					{
-						outputFile: './test-results/playwright-report.xml'
+						outputFile: './playwright-report/playwright-report.xml'
 					}
 				]
 			] :
