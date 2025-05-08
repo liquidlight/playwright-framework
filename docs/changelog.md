@@ -5,9 +5,19 @@ nav_order: 99
 
 # Changelog
 
+## 2.1.0
+
+**8th May 2025**
+
+#### Feature
+
+- Expose more `utils` methods for project use
+- Add `setContentAndScriptTag` method for quick content & JS setting
+- Update CI reporter output
+
 ## 2.0.0
 
-**21st February 2024**
+**21st February 2025**
 
 #### Feature
 
