@@ -57,7 +57,7 @@ export const test = playwrightTest.extend< FrameworkTest >({
 			url = (matchUrlHostToEnv(hosts, url) ?? url);
 
 			// Add URL as annotation
-			test.info().annotations.push({type: 'goto', description: url});
+			playwrightTest.info().annotations.push({type: 'goto', description: url});
 
 			// Carry on with the original page.goto
 			return goto(url, options);
