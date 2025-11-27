@@ -1,0 +1,47 @@
+/*
+ * All elements
+ */
+*,
+*::before,
+*::after {
+	/* Remove all animations */
+	animation-delay: -1ms !important;
+	animation-duration: 1ms !important;
+	animation-iteration-count: 1 !important;
+	background-attachment: initial !important;
+	scroll-behavior: auto !important;
+	transition-duration: 0s !important;
+	transition-delay: 0s !important;
+
+	/* Make everything visible */
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+
+/*
+ * Specific Elements
+ */
+
+/* Hide all iframe content  */
+iframe {
+	visibility: hidden !important;
+	background-color: salmon;
+}
+
+/*
+ * Cookie Popups
+ */
+.cookiePolicy,
+#cookieman-modal,
+#CybotCookiebotDialog,
+#hs-eu-cookie-confirmation,
+#termly-code-snippet-support {
+	display: none !important;
+}
+
+/*
+ * Modal Popups
+ */
+#hs-interactives-modal-overlay {
+	display: none !important;
+}

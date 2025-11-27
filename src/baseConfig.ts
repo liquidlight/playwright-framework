@@ -24,6 +24,13 @@ export const baseConfig: FrameworkTestConfig = {
 		screenshot: 'only-on-failure'
 	},
 
+	/* Add custom css for screenshots */
+	expect: {
+		toHaveScreenshot: {
+			stylePath: __dirname + '/screenshot.css'
+		},
+	},
+
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	reporter: (
 		process.env.CI ?
