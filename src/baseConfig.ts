@@ -4,8 +4,10 @@ import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// Get the directory containing the compiled output
+// For ESM: use import.meta.url; for CommonJS: resolve from package root
+// @ts-ignore - import.meta is ESM-only but the CJS build copies the ESM compiled output
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const baseConfig: FrameworkTestConfig = {
 	// Projects

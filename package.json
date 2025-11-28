@@ -32,7 +32,7 @@
   },
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "build": "npm run clean && tsc -p ./tsconfig.esm.json && tsc -p ./tsconfig.cjs.json && cp dist/esm/baseConfig.js dist/cjs/baseConfig.js && cp dist/esm/baseConfig.d.ts dist/cjs/baseConfig.d.ts && cp src/screenshot.css dist/esm/screenshot.css && cp src/screenshot.css dist/cjs/screenshot.css && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "prepack": "npm run build",
     "prepare": "npm run build",
     "lint": "eslint .",
