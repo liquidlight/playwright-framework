@@ -25,6 +25,9 @@
 /* Hide all iframe content  */
 iframe {
 	visibility: hidden !important;
+}
+
+.video:has(iframe) {
 	background-color: salmon;
 }
 
