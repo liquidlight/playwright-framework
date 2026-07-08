@@ -44,21 +44,21 @@
   "author": "Mike Street",
   "license": "ISC",
   "dependencies": {
-    "@axe-core/playwright": "^4.10.1",
-    "@playwright/test": "^1.50.1",
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
     "axe-html-reporter": "^2.2.11",
-    "dotenv": "^16.4.7",
-    "glob": "^11.0.1",
-    "monocart-reporter": "^2.9.15",
-    "yaml": "^2.7.0"
+    "dotenv": "^16.6.1",
+    "glob": "^11.1.0",
+    "monocart-reporter": "^2.12.2",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.21.0",
-    "@types/node": "^22.13.4",
-    "eslint": "^9.21.0",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.1",
-    "vitest": "^4.1.8"
+    "@types/node": "^22.20.1",
+    "eslint": "^9.39.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.63.0",
+    "vitest": "^4.1.10"
   }
 }
