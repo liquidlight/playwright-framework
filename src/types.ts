@@ -12,7 +12,7 @@ export type HostSite = {
 export type Hosts = HostSite[];
 
 export interface FrameworkPage extends Page {
-	setContentAndScriptTag: () => void;
+	setContentAndScriptTag: (content?: string, path?: string) => Promise<void>;
 }
 
 // Define additional parameters
