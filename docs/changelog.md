@@ -5,6 +5,19 @@ nav_order: 99
 
 # Changelog
 
+## 2.1.1
+
+**9th July 2025**
+
+#### Fix
+
+- Add annotation to `playwrightTest`, not our new `test` for report
+- Correct `FrameworkPage.setContentAndScriptTag` type signature to match its implementation (`(content?: string, path?: string) => Promise<void>`, not `() => void`)
+
+#### Dependencies
+
+- Update several dependencies (non-breaking)
+
 ## 2.1.0
 
 **8th May 2025**
