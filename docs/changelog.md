@@ -5,9 +5,21 @@ nav_order: 99
 
 # Changelog
 
+## 2.1.2
+
+**16th July 2026**
+
+#### Fix
+
+- Resolve path resolution for CSS file when using Common JS
+
 ## 2.1.1
 
 **9th July 2025**
+
+#### Feature
+
+- Add custom CSS when taking screenshots
 
 #### Fix
 
