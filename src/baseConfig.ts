@@ -4,10 +4,29 @@ import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-// Get the directory containing the compiled output
-// For ESM: use import.meta.url; for CommonJS: resolve from package root
-// @ts-ignore - import.meta is ESM-only but the CJS build copies the ESM compiled output
-const __dirname = dirname(fileURLToPath(import.meta.url));
+// Get the directory containing the compiled output.
+// The CJS build already has __dirname available for free. The ESM build
+// does not, and `import.meta.url` can't be used here because this same
+// source is also compiled to CommonJS, where a literal `import.meta`
+// token is a syntax error. Instead, derive the file location from the
+// stack trace of this IIFE, which Node reports as a `file://` URL in ESM.
+function getPackageDir(): string {
+	if (typeof __dirname !== 'undefined') {
+		return __dirname;
+	}
+
+	const callerLine = new Error().stack?.split('\n')[1] ?? '';
+	const match = callerLine.match(/(file:\/\/\S+):\d+:\d+\)?$/);
+	const fileUrl = match?.[1];
+
+	if (!fileUrl) {
+		throw new Error('@liquidlight/playwright-framework: unable to resolve package directory in ESM context');
+	}
+
+	return dirname(fileURLToPath(fileUrl));
+}
+
+const packageDir = getPackageDir();
 
 export const baseConfig: FrameworkTestConfig = {
 	// Projects
@@ -34,7 +53,7 @@ export const baseConfig: FrameworkTestConfig = {
 	/* Add custom css for screenshots */
 	expect: {
 		toHaveScreenshot: {
-			stylePath: __dirname + '/screenshot.css'
+			stylePath: packageDir + '/screenshot.css'
 		},
 	},
 
