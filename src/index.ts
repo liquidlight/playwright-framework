@@ -29,4 +29,5 @@ export {
 	getEnv,
 	matchHostnameToEnv,
 	matchUrlHostToEnv,
+	viteAsset,
 } from './utils.js';
