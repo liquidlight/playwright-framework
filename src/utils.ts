@@ -4,6 +4,8 @@ import type {
 	ProjectConfig
 } from './types.js';
 import { devices } from '@playwright/test';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Consts
@@ -142,4 +144,16 @@ export function deepMerge<T extends PlainObject>(target: T, ...sources: PlainObj
 // Detect if a variable is an object
 export function isObject(item: any): item is PlainObject {
 	return (item && typeof item === 'object' && !Array.isArray(item));
+}
+
+// Resolve a Vite manifest entry to its built asset path
+export function viteAsset(entry: string, basePath: string = 'html/_assets/vite'): string {
+	const manifestPath = path.resolve(process.cwd(), `${basePath}/.vite/manifest.json`);
+	const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+
+	if (!manifest[entry]) {
+		throw new Error(`viteAsset: no entry found in manifest for "${entry}"`);
+	}
+
+	return `${basePath}/${manifest[entry].file}`;
 }
