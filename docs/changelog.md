@@ -5,6 +5,19 @@ nav_order: 99
 
 # Changelog
 
+## 2.2.0
+
+**17th September 2026**
+
+#### Feature
+
+- Add `viteAsset` function to resolve Vite manifest entries
+
+#### Dependencies
+
+- Bump `json` in /docs
+- Bump `concurrent-ruby`
+
 ## 2.1.2
 
 **16th July 2026**
