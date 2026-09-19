@@ -1,8 +1,10 @@
 ---
-title: Devices & Projects
+title: Devices & projects
 nav_order: 3
 parent: Customisation
 ---
+
+# Devices & projects
 
 When using the [configuration function](./configuration-function) to generate your baseline config, there are 3 preconfigured projects by default. These are:
 

@@ -1,5 +1,5 @@
 ---
-title: viteAsset function
+title: "`viteAsset` function"
 nav_order: 5
 parent: Customisation
 ---

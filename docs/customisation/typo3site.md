@@ -1,5 +1,5 @@
 ---
-title: typo3site function
+title: "`typo3site` function"
 nav_order: 4
 parent: Customisation
 ---

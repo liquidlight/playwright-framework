@@ -10,18 +10,18 @@ The framework has the ability to run different tests on different devices based 
 
 Tests can have one of three main suffixes:
 
-- `.unit.ts` - will be run by the first device
-- `.spec.ts` - will be run by the first device
-- `.test.ts` - will be run by all devices
+- `.unit.ts` - will be run by _the first_ device
+- `.spec.ts` - will be run by _the first_ device
+- `.test.ts` - will be run by _all_ devices
 
 As a subset, each of these can be prefixed with `mobile` or `desktop`
 
 E.g.
 
-- `.mobile.spec.ts` - will be run by the first **mobile** device
-- `.mobile.spec.ts` - will be run by all **mobile** devices
-- `.desktop.spec.ts` - will be run by the first **desktop** device
-- `.desktop.test.ts` - will be run by all **desktop** devices
+- `.mobile.spec.ts` - will be run by _the first_ **mobile** device
+- `.mobile.test.ts` - will be run by _all_ **mobile** devices
+- `.desktop.spec.ts` - will be run by _the first_ **desktop** device
+- `.desktop.test.ts` - will be run by _all_ **desktop** devices
 
 **Note**: The dynamic running is only available if you have used the [projects provided by the framework](./devices).
 
