@@ -9,21 +9,30 @@ import { dirname } from 'path';
 // does not, and `import.meta.url` can't be used here because this same
 // source is also compiled to CommonJS, where a literal `import.meta`
 // token is a syntax error. Instead, derive the file location from the
-// stack trace of this IIFE, which Node reports as a `file://` URL in ESM.
+// raw V8 call sites. The formatted `stack` string can't be used, as
+// source-map-support (installed by Playwright) rewrites it to point at
+// the TypeScript source, which is not published.
 function getPackageDir(): string {
 	if (typeof __dirname !== 'undefined') {
 		return __dirname;
 	}
 
-	const callerLine = new Error().stack?.split('\n')[1] ?? '';
-	const match = callerLine.match(/(file:\/\/\S+):\d+:\d+\)?$/);
-	const fileUrl = match?.[1];
+	const originalPrepareStackTrace = Error.prepareStackTrace;
+	let fileName: string | undefined;
 
-	if (!fileUrl) {
+	try {
+		Error.prepareStackTrace = (_, callSites) => callSites;
+		const callSites = new Error().stack as unknown as NodeJS.CallSite[];
+		fileName = callSites[0]?.getFileName() ?? undefined;
+	} finally {
+		Error.prepareStackTrace = originalPrepareStackTrace;
+	}
+
+	if (!fileName) {
 		throw new Error('@liquidlight/playwright-framework: unable to resolve package directory in ESM context');
 	}
 
-	return dirname(fileURLToPath(fileUrl));
+	return dirname(fileName.startsWith('file://') ? fileURLToPath(fileName) : fileName);
 }
 
 const packageDir = getPackageDir();
