@@ -5,6 +5,14 @@ nav_order: 99
 
 # Changelog
 
+## 2.2.1
+
+**28th September 2026**
+
+#### Fix
+
+- Resolve `screenshot.css` from the compiled `dist` folder when source maps rewrite stack traces (e.g. under Playwright)
+
 ## 2.2.0
 
 **17th September 2026**
