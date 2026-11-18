@@ -3,6 +3,15 @@ import type { FrameworkTest } from "./types.js";
 import { test as playwrightTest } from "@playwright/test";
 import { matchUrlHostToEnv } from "./utils.js";
 
+// Make a URL absolute, leaving it as it is when it can't be resolved
+function resolveUrl(url: string, baseURL?: string): string {
+	try {
+		return new URL(url, baseURL).toString();
+	} catch {
+		return url;
+	}
+}
+
 /**
  * Test
  *
@@ -46,8 +55,27 @@ export const test = playwrightTest.extend< FrameworkTest >({
 		await context.close();
 	},
 
+	// Record every URL requested through the `request` fixture
+	request: async ({ request, baseURL }, use, testInfo) => {
+		// get, post, put, patch, delete and head all call fetch
+		const fetch = request.fetch.bind(request);
+
+		request.fetch = async (urlOrRequest, options?) => {
+			const isString = typeof urlOrRequest === 'string',
+				method = (options?.method ?? (isString ? 'GET' : urlOrRequest.method())).toUpperCase(),
+				url = resolveUrl(isString ? urlOrRequest : urlOrRequest.url(), baseURL);
+
+			// Add URL as annotation
+			testInfo.annotations.push({type: 'request', description: `${method} ${url}`});
+
+			return fetch(urlOrRequest, options);
+		};
+
+		await use(request);
+	},
+
 	// Overwrite the page
-	page: async ({ page, hosts }, use) => {
+	page: async ({ page, hosts, baseURL }, use, testInfo) => {
 		// Create a reference of the original goto
 		const goto = page.goto.bind(page);
 
@@ -56,8 +84,8 @@ export const test = playwrightTest.extend< FrameworkTest >({
 			// Define URL with correct host
 			url = (matchUrlHostToEnv(hosts, url) ?? url);
 
-			// Add URL as annotation
-			playwrightTest.info().annotations.push({type: 'goto', description: url});
+			// Add URL as annotation, resolved against the baseURL so it can be clicked
+			playwrightTest.info().annotations.push({type: 'goto', description: resolveUrl(url, baseURL)});
 
 			// Carry on with the original page.goto
 			return goto(url, options);
@@ -79,5 +107,11 @@ export const test = playwrightTest.extend< FrameworkTest >({
 
 		// Use the page
 		await use(page);
+
+		// Record where the page ended up, to show redirects in the CI reporter
+		const finalUrl = page.url();
+		if (/^https?:/.test(finalUrl)) {
+			testInfo.annotations.push({type: 'page-url', description: finalUrl});
+		}
 	}
 });

@@ -3,6 +3,7 @@ import type { FrameworkTestConfig } from './types.js';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { existsSync } from 'fs';
 
 // Get the directory containing the compiled output.
 // The CJS build already has __dirname available for free. The ESM build
@@ -37,6 +38,10 @@ function getPackageDir(): string {
 
 const packageDir = getPackageDir();
 
+// The CI reporter, compiled to .js in dist, or the TypeScript source when running from src
+const ciReporter = [packageDir + '/reporters/ci.js', packageDir + '/reporters/ci.ts']
+	.find(path => existsSync(path)) ?? packageDir + '/reporters/ci.js';
+
 export const baseConfig: FrameworkTestConfig = {
 	// Projects
 	projects: [],
@@ -70,7 +75,7 @@ export const baseConfig: FrameworkTestConfig = {
 	reporter: (
 		process.env.CI ?
 			[
-				['dot'],
+				[ciReporter],
 				[
 					'junit',
 					{

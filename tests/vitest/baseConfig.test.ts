@@ -43,3 +43,31 @@ describe('baseConfig screenshot stylePath', () => {
 		expect(existsSync(stylePath)).toBe(true);
 	});
 });
+
+describe('baseConfig CI reporter', () => {
+	function resolveCiReporter(script: string, inputType: 'module' | 'commonjs'): string {
+		return execFileSync(
+			process.execPath,
+			['--enable-source-maps', `--input-type=${inputType}`, '-e', script],
+			{ cwd: rootDir, encoding: 'utf8', env: { ...process.env, CI: '1' } }
+		).trim();
+	}
+
+	test('should resolve to the ESM dist folder and export a reporter class', () => {
+		const output = resolveCiReporter(
+			"const { baseConfig } = await import('./dist/esm/baseConfig.js'); const path = baseConfig.reporter[0][0]; const { default: Reporter } = await import(path); console.log(path, typeof Reporter);",
+			'module'
+		);
+
+		expect(output).toBe(`${resolve(rootDir, 'dist/esm/reporters/ci.js')} function`);
+	});
+
+	test('should resolve to the CommonJS dist folder and export a reporter class', () => {
+		const output = resolveCiReporter(
+			"const { baseConfig } = require('./dist/cjs/baseConfig.js'); const path = baseConfig.reporter[0][0]; console.log(path, typeof require(path).default);",
+			'commonjs'
+		);
+
+		expect(output).toBe(`${resolve(rootDir, 'dist/cjs/reporters/ci.js')} function`);
+	});
+});
