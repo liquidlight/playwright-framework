@@ -54,7 +54,7 @@ When `GITLAB_CI` is set:
 
 - Screenshots, traces and the actual and diff images of a failed visual comparison link to the job's artifacts, using `CI_JOB_URL`. The links only work when the job uploads `test-results` as an artifact.
 - The expected image of a visual comparison links to the committed baseline in the repository, at the commit being tested.
-- The full output of every attempt is added in a collapsed section under each failure.
+- When attempts failed with different errors, the full output of the other attempts is added in a collapsed section under the failure.
 - Output is coloured, unless `NO_COLOR` is set.
 
 ## Using a different reporter

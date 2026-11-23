@@ -358,14 +358,14 @@ export function formatFailure(index: number, test: TestCase, environment: Enviro
 		}
 	}
 
-	// Full output of every attempt, folded away in GitLab
-	if (environment.gitlab) {
-		const detail = results.map(result => {
-			const body = result.errors.map(error => formatError(error, environment)).join('\n\n') || `Status: ${result.status}`;
-			return `Attempt ${result.retry + 1} (${result.status}, ${formatDuration(result.duration)})\n${indent(body, 2)}`;
+	// Full output of the attempts that failed differently from the one shown above, folded away in GitLab
+	if (environment.gitlab && errors.length > 1) {
+		const detail = errors.slice(0, -1).map(group => {
+			const body = group.errors.map(error => formatError(error, environment)).join('\n\n');
+			return `Attempt ${group.attempts.join(', ')}\n${indent(body, 2)}`;
 		}).join('\n\n');
 
-		lines.push('', section(indent(c.dim('Full output of each attempt'), 3), indent(detail, 3), environment));
+		lines.push('', section(indent(c.dim('Full output of the other attempts'), 3), indent(detail, 3), environment));
 	}
 
 	return lines.join('\n');

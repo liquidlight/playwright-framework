@@ -297,13 +297,30 @@ describe('formatFailure', () => {
 		expect(output).toContain('Hard failure');
 	});
 
-	test('adds a collapsed section with every attempt in GitLab', () => {
+	test('summarises identical attempts in GitLab', () => {
 		const output = stripAnsi(formatFailure(1, failing, gitlab));
 
 		expect(output).toContain('artifacts/raw/test-results/home-retry1/trace.zip');
+		expect(output).toContain('Same error on all 3 attempts');
+		expect(output).not.toContain('section_start:');
+		expect(output.match(/Received: 307/g)).toHaveLength(1);
+	});
+
+	test('adds a collapsed section with the other errors in GitLab when attempts differ', () => {
+		const differing = testCase('unexpected', [
+			result(0, { errors: [error('Expected: 200\nReceived: 500')] }),
+			result(1, { errors: [error('Expected: 200\nReceived: 500')] }),
+			result(2, { errors: [error('Expected: 200\nReceived: 307')] }),
+		]);
+		const output = stripAnsi(formatFailure(1, differing, gitlab));
+
+		expect(output).toContain('Attempts failed with 2 different errors:');
+		expect(output).toContain('Attempt 1, 2: Received: 500');
 		expect(output).toContain('section_start:');
-		expect(output).toContain('Attempt 3 (failed, 1.5s)');
-		// Once in the summary and once for each attempt
-		expect(output.match(/Received: 307/g)).toHaveLength(4);
+		expect(output).toContain('Full output of the other attempts');
+		// Attempt 3's error appears once, in full above the section
+		expect(output.match(/Received: 307/g)).toHaveLength(1);
+		// Attempts 1 and 2 appear in the summary line and once in the section
+		expect(output.match(/Received: 500/g)).toHaveLength(2);
 	});
 });
